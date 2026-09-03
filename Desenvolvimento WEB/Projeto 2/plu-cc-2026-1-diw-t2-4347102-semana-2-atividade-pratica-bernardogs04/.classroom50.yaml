@@ -1,0 +1,13 @@
+schema: "classroom50/repo-config/v1"
+classroom: "plu-cc-2026-1-diw-t2-4347102"
+assignment: "semana-2-atividade-pratica"
+secret: "xij29bkj"
+owner:
+  username: "bernardogs04"
+  id: 316919344
+  accepted_at: "2026-08-21T10:28:46Z"
+source:
+  owner: "icei-diw"
+  owner_id: 198835443
+  repo: "diw-cc-ap-semana-2"
+  branch: "main"

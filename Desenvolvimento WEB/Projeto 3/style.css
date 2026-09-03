@@ -1,0 +1,54 @@
+.imagem_perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 40px;
+    padding-top: 20px;
+}
+
+.foto-perfil {
+    width: 250px;
+    border-radius: 80px;
+}
+
+.info-perfil {
+    text-align: center;
+}
+
+
+h1 {
+    color: #002243;
+    font-size: 40px;
+    line-height: 1.25;
+    margin: 0 0 15px 0;
+}
+h2 {
+    color: #002243;
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 0 0 15px 0;
+}
+h3 {
+    color: #002243;
+    font-size: 15px;
+    line-height: 1.25;
+    margin: 0 0 10px 0;
+    text-align: center;
+}
+
+h4 {
+    color: #002243;
+    font-size: 28px;
+    line-height: 1.25;
+    margin: 30px 0 15px 15px;
+    text-align: left;
+}
+
+p {
+    color: #002243;
+    font-size: 20px;
+    line-height: 1.25;
+    margin: 10px 15px;
+    text-align: justify;
+}
