@@ -152,3 +152,43 @@ class Veiculo{
 		return String.format ("[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %s ## %s ## %s ## %s ## %s ## %s ## %b ## %s]",id, marca, modelo, ano, categoria, Arrays.toString(combustivel), cilindros, cilindrada, transmissao, tracao, consumoCidade, consumoEstrada, co2, turbo, dataRegistro);
 	}
 } 
+
+class Data{
+	private int ano;
+	private int mes;
+	private int dia;
+
+	public int getAno(){
+		return ano;
+	}
+	public int getMes(){
+		return mes;
+	}
+	public int getDia(){
+		return dia;
+	}
+	public int setAno(int a){
+		ano = a;
+	}
+	public int setMes(int a){
+		mes = a;
+	}
+	public int setDia(int a){
+		dia = a;
+	}
+}
+
+public class Tp2Q1{
+	public static void main(String[] args) {
+
+        Veiculo[] veiculos = LerCSV.ler("veiculos.csv");
+
+        Scanner scan = new Scanner(System.in);
+
+	int IdProcurar = scan.nextInt();
+
+
+		return 0;
+	}
+}
+
