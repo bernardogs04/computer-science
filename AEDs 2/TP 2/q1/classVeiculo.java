@@ -15,6 +15,23 @@ class Veiculo{
 	private boolean turbo;
 	private Data dataRegistro;
 
+	public Veiculo(int id, String marca, String modelo, int ano, String categoria, String combustivel, int cilindros, float cilindrada, String transmissao, String tracao, float consumo_cidade, float consumo_estrada, float co2, boolean turbo, Data data_registro) {
+    	this.id = id;
+    	this.marca = marca;
+    	this.modelo = modelo;
+    	this.ano = ano;
+    	this.categoria = categoria;
+    	this.combustivel = combustivel;
+    	this.cilindros = cilindros;
+    	this.cilindrada = cilindrada;
+    	this.transmissao = transmissao;
+    	this.tracao = tracao;
+    	this.consumo_cidade = consumo_cidade;
+    	this.consumo_estrada = consumo_estrada;
+    	this.co2 = co2;
+    	this.turbo = turbo;
+    	this.data_registro = data_registro;
+
 	public int getId(){
 		return id;
 	}
@@ -131,48 +148,9 @@ class Veiculo{
         			}
     			}
     		combustivelStr += "]";
+
 		return String.format ("[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %s ## %s ## %s ## %s ## %s ## %s ## %b ## %s]",id, marca, modelo, ano, categoria, Arrays.toString(combustivel), cilindros, cilindrada, transmissao, tracao, consumoCidade, consumoEstrada, co2, turbo, dataRegistro)
 	}
 
 }
-
-class Data{
-	private int ano;
-	private int mes;
-	private int dia;
-
-	public int getAno(){
-		return ano;
-	}
-	public int getMes(){
-		return mes;
-	}
-	public int getDia(){
-		return dia;
-	}
-	public int setAno(int a){
-		ano = a;
-	}
-	public int setMes(int a){
-		mes = a;
-	}
-	public int setDia(int a){
-		dia = a;
-	}
-}
-
-class LeitorCsv{
-
-
-}
-
-public class Tpq1{
-
-
-}
-
-int main(){
-
-
-	return 0;
-}
+  
