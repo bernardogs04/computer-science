@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<title>Cardápio Virtual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div>
+      <div class="logo-row">
+        <svg class="flame-icon" width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C12 2 5 9.5 5 14.5C5 18.09 8.13 21 12 21C15.87 21 19 18.09 19 14.5C19 9.5 12 2 12 2Z"/></svg>
+        <span class="mark">Brasa Burger</span>
+      </div>
+      <p class="tagline">Grelhado na brasa, montado na hora</p>
+    </div>
+
+    <nav class="nav" role="tablist" aria-label="Categorias do cardápio">
+      <button class="nav-item active" role="tab" aria-selected="true" id="tab-entradas" aria-controls="page-entradas" data-page="entradas">
+        <span class="icon" aria-hidden="true">🍟</span> Entradas
+      </button>
+      <button class="nav-item" role="tab" aria-selected="false" id="tab-lanches" aria-controls="page-lanches" data-page="lanches">
+        <span class="icon" aria-hidden="true">🍔</span> Lanches
+      </button>
+      <button class="nav-item" role="tab" aria-selected="false" id="tab-sobremesas" aria-controls="page-sobremesas" data-page="sobremesas">
+        <span class="icon" aria-hidden="true">🍰</span> Sobremesas
+      </button>
+      <button class="nav-item" role="tab" aria-selected="false" id="tab-bebidas" aria-controls="page-bebidas" data-page="bebidas">
+        <span class="icon" aria-hidden="true">🥤</span> Bebidas
+      </button>
+    </nav>
+
+    <div class="cart-summary">
+      <div class="row"><span>Itens no carrinho</span><span id="cartCount">0</span></div>
+      <div class="total" id="cartTotal">R$ 0,00</div>
+      <button class="checkout-btn" id="checkoutBtn" disabled>Finalizar pedido</button>
+    </div>
+  </aside>
+
+  <div class="content-wrapper">
+    <main class="content">
+      <div id="pagesContainer"></div>
+    </main>
+  </div>
+</div>
+
+<div class="mobile-cart-bar" id="mobileCartBar">
+  <div>
+    <div style="font-size:12px;color:var(--creme-fraca);" id="mobileCartCount">0 itens</div>
+    <div style="font-family:'Anton',sans-serif;font-size:19px;color:var(--mostarda);" id="mobileCartTotal">R$ 0,00</div>
+  </div>
+  <button class="checkout-btn" id="mobileCheckoutBtn" disabled>Finalizar</button>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalSummary">
+    <h2>Resumo do pedido</h2>
+    <div id="modalItems"></div>
+    <div class="modal-total-row">
+      <span class="label">Total</span>
+      <span class="value" id="modalTotalValue">R$ 0,00</span>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-close" id="modalClose">Voltar</button>
+      <button class="modal-confirm" id="modalConfirm">Confirmar pedido</button>
+    </div>
+  </div>
+  <div class="modal modal-success" id="modalSuccess">
+    <div class="confirm-icon" aria-hidden="true">✓</div>
+    <h2>Pedido enviado!</h2>
+    <p>Seu pedido foi recebido e já está sendo preparado na brasa.</p>
+    <button class="modal-confirm" id="modalDone" style="width:100%;margin-top:8px;">Voltar ao cardápio</button>
+  </div>
+</div>
+
+<script>
+  const menuData = [
+    {
+      id: 'entradas', title: 'Entradas', icon: '🍟',
+      tagline: 'Para começar bem, enquanto o prato principal vem sendo preparado na brasa.',
+      items: [
+        { id: 'e1', emoji: '🍟', name: 'Batata Rústica', desc: 'Batata frita crocante com ervas finas e páprica defumada.', price: 18.90 },
+        { id: 'e2', emoji: '🧅', name: 'Onion Rings', desc: 'Anéis de cebola empanados, crocantes por fora e macios por dentro.', price: 22.90 },
+        { id: 'e3', emoji: '🍗', name: 'Frango à Passarinho', desc: 'Iscas de frango temperadas e fritas na hora, com limão.', price: 24.90 },
+      ],
+    },
+    {
+      id: 'lanches', title: 'Lanches', icon: '🍔',
+      tagline: 'Grelhados na brasa e montados na hora do seu pedido.',
+      items: [
+        { id: 'l1', emoji: '🍔', name: 'Clássico Brasa', desc: 'Pão brioche, blend 160g grelhado na brasa, cheddar, alface e tomate.', price: 26.90, popular: true },
+        { id: 'l2', emoji: '🥓', name: 'Bacon Duplo', desc: 'Dois hambúrgueres, bacon crocante e cheddar cremoso derretido.', price: 34.90 },
+        { id: 'l3', emoji: '🔥', name: 'Smash Signature', desc: 'Smash burger fino e crocante, molho da casa e picles.', price: 28.90, popular: true },
+        { id: 'l4', emoji: '🥬', name: 'Veggie Grelhado', desc: 'Hambúrguer de grão-de-bico grelhado, queijo e rúcula fresca.', price: 27.90 },
+        { id: 'l5', emoji: '🧀', name: 'Onion Cheddar', desc: 'Blend 180g, cebola caramelizada lentamente e cheddar cremoso.', price: 29.90 },
+      ],
+    },
+    {
+      id: 'sobremesas', title: 'Sobremesas', icon: '🍰',
+      tagline: 'Pra fechar a refeição com chave de ouro.',
+      items: [
+        { id: 's1', emoji: '🥤', name: 'Milk-shake de Chocolate', desc: 'Cremoso, coberto com calda e chantilly.', price: 16.90 },
+        { id: 's2', emoji: '🍫', name: 'Brownie com Sorvete', desc: 'Brownie quente com uma bola de sorvete de creme.', price: 19.90 },
+        { id: 's3', emoji: '🍮', name: 'Petit Gateau', desc: 'Bolo quente com recheio cremoso e sorvete de creme.', price: 21.90 },
+      ],
+    },
+    {
+      id: 'bebidas', title: 'Bebidas', icon: '🥤',
+      tagline: 'Geladinhas, pra acompanhar qualquer pedido.',
+      items: [
+        { id: 'b1', emoji: '🥤', name: 'Refrigerante Lata', desc: 'Diversos sabores, servido bem gelado.', price: 7.90 },
+        { id: 'b2', emoji: '🧃', name: 'Suco Natural', desc: 'Feito na hora, sabores variados conforme a estação.', price: 9.90 },
+        { id: 'b3', emoji: '💧', name: 'Água Mineral', desc: 'Com ou sem gás.', price: 5.90 },
+        { id: 'b4', emoji: '🍺', name: 'Cerveja Artesanal', desc: 'Long neck, rótulos selecionados da casa.', price: 14.90 },
+      ],
+    },
+  ];
+
+  let cart = {};
+
+  function formatPrice(v) {
+    return 'R$ ' + v.toFixed(2).replace('.', ',');
+  }
+
+  function findItem(id) {
+    for (const cat of menuData) {
+      const found = cat.items.find(i => i.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  function renderPages() {
+    const container = document.getElementById('pagesContainer');
+    container.innerHTML = menuData.map((cat, i) => `
+      <section class="page${i === 0 ? ' active' : ''}" id="page-${cat.id}" role="tabpanel" aria-labelledby="tab-${cat.id}">
+        <header class="page-header">
+          <h1><span aria-hidden="true">${cat.icon}</span> ${cat.title}</h1>
+          <p>${cat.tagline}</p>
+        </header>
+        <ul class="item-list">
+          ${cat.items.map(item => `
+            <li class="item-row">
+              <div class="item-plate" aria-hidden="true">${item.emoji}</div>
+              <div class="item-info">
+                <div class="name">${item.name}${item.popular ? '<span class="badge">Mais pedido</span>' : ''}</div>
+                <div class="desc">${item.desc}</div>
+              </div>
+              <div class="item-action">
+                <div class="item-price">${formatPrice(item.price)}</div>
+                <button class="add-btn" data-id="${item.id}" aria-label="Adicionar ${item.name} ao carrinho">
+                  <span class="plus" aria-hidden="true">+</span> Adicionar
+                </button>
+              </div>
+            </li>
+          `).join('')}
+        </ul>
+      </section>
+    `).join('');
+
+    container.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', () => addToCart(btn.dataset.id, btn));
+    });
+  }
+
+  function addToCart(id, btnEl) {
+    cart[id] = (cart[id] || 0) + 1;
+    updateCartUI();
+
+    if (btnEl) {
+      const original = btnEl.innerHTML;
+      btnEl.classList.add('added');
+      btnEl.innerHTML = '✓ Adicionado';
+      setTimeout(() => {
+        btnEl.classList.remove('added');
+        btnEl.innerHTML = original;
+      }, 900);
+    }
+  }
+
+  function getCartTotals() {
+    let count = 0, total = 0;
+    for (const id in cart) {
+      const item = findItem(id);
+      if (!item) continue;
+      count += cart[id];
+      total += cart[id] * item.price;
+    }
+    return { count, total };
+  }
+
+  function updateCartUI() {
+    const { count, total } = getCartTotals();
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartTotal').textContent = formatPrice(total);
+    document.getElementById('mobileCartCount').textContent = count + (count === 1 ? ' item' : ' itens');
+    document.getElementById('mobileCartTotal').textContent = formatPrice(total);
+
+    const disabled = count === 0;
+    document.getElementById('checkoutBtn').disabled = disabled;
+    document.getElementById('mobileCheckoutBtn').disabled = disabled;
+
+    const totalEl = document.getElementById('cartTotal');
+    totalEl.style.transform = 'scale(1.08)';
+    setTimeout(() => { totalEl.style.transform = 'scale(1)'; }, 150);
+  }
+
+  function switchPage(pageId) {
+    const cat = menuData.find(c => c.id === pageId);
+    if (!cat) return;
+
+    document.querySelectorAll('.page').forEach(p => {
+      p.classList.toggle('active', p.id === 'page-' + pageId);
+    });
+
+    document.querySelectorAll('.nav-item').forEach(n => {
+      const isActive = n.dataset.page === pageId;
+      n.classList.toggle('active', isActive);
+      n.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    document.title = cat.title + ' — Brasa Burger';
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function setupNav() {
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => switchPage(item.dataset.page));
+    });
+  }
+
+  function openModal() {
+    const { count, total } = getCartTotals();
+    if (count === 0) return;
+    document.getElementById('modalSummary').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+    const list = document.getElementById('modalItems');
+    list.innerHTML = Object.keys(cart).map(id => {
+      const item = findItem(id);
+      const qty = cart[id];
+      return `<div class="modal-item">
+        <span><span class="qty">${qty}×</span>${item.name}</span>
+        <span>${formatPrice(item.price * qty)}</span>
+      </div>`;
+    }).join('');
+    document.getElementById('modalTotalValue').textContent = formatPrice(total);
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  function confirmOrder() {
+    document.getElementById('modalSummary').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
+  function finishOrder() {
+    cart = {};
+    updateCartUI();
+    closeModal();
+  }
+
+  function setupCheckout() {
+    document.getElementById('checkoutBtn').addEventListener('click', openModal);
+    document.getElementById('mobileCheckoutBtn').addEventListener('click', openModal);
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalConfirm').addEventListener('click', confirmOrder);
+    document.getElementById('modalDone').addEventListener('click', finishOrder);
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+      if (e.target.id === 'modalOverlay') closeModal();
+    });
+  }
+
+  renderPages();
+  setupNav();
+  setupCheckout();
+  updateCartUI();
+  switchPage('entradas');
+</script>
+
+</body>
+</html>
