@@ -1,205 +1,251 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-typedef struct {
-	int ano;
-	int mes;
-	int dia;
+typedef struct
+{
+    int ano;
+    int mes;
+    int dia;
 } Data;
 
-typedef struct {
-	int id;
-	char marca[100];
-	char modelo[100];
-	int ano;
-	char categoria[100];
-	char combustivel[5][100];
-	int cilindros;
-	double cilindrada;
-	char transmissao[100];
-	char tracao[100];
-	double consumoCidade;
-	double consumoEstrada;
-	double co2;
-	int turbo;
-	Data dataRegistro;
+typedef struct
+{
+    int id;
+    char marca[100];
+    char modelo[100];
+    int ano;
+    char categoria[100];
+    char combustivel[5][100];
+    int numCombustivel;
+    int cilindros;
+    double cilindrada;
+    char transmissao[100];
+    char tracao[100];
+    double consumoCidade;
+    double consumoEstrada;
+    double co2;
+    int turbo;
+    Data dataRegistro;
 } Veiculo;
 
-Data parseData(char* s){
-	Data data;
-	data.ano = 0;
-	data.mes = 0;
-	data.dia = 0;
-	sscanf(s, "%d-%d-%d", &data.ano, &data.mes, &data.dia);
-	return data;
+Data parseData(char *a)
+{
+    Data data;
+    data.ano = 0;
+    data.mes = 0;
+    data.dia = 0;
+    sscanf(a, "%d-%d-%d", &data.ano, &data.mes, &data.dia);
+    return data;
 }
 
-void formatData(Data d, char* buffer){
-	sprintf(buffer, "%02d/%02d/%04d", d.dia, d.mes, d.ano);
+void formatData(Data d, char *resposta)
+{
+    sprintf(resposta, "%02d/%02d/%04d", d.dia, d.mes, d.ano);
 }
 
-void formatDouble(double x, char* buffer){
-	int precisao = 1;
-	sprintf(buffer, "%.*f", precisao, x);
-	double temp;
-	sscanf(buffer, "%lf", &temp);
-	while (precisao < 17 && temp != x) {
-		precisao++;
-		sprintf(buffer, "%.*f", precisao, x);
-		sscanf(buffer, "%lf", &temp);
-	}
+Veiculo *parseVeiculo(char *s)
+{
+
+    Veiculo *carro = (Veiculo *)malloc(sizeof(Veiculo));
+    if (carro == NULL)
+        return NULL;
+
+    char *dados;
+
+    dados = strtok(s, ",");
+    sscanf(dados, "%d", &carro->id);
+
+    dados = strtok(NULL, ",");
+    sprintf(carro->marca, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    sprintf(carro->modelo, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%d", &carro->ano);
+
+    dados = strtok(NULL, ",");
+    sprintf(carro->categoria, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    char combTemp[100];
+    sprintf(combTemp, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%d", &carro->cilindros);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%lf", &carro->cilindrada);
+
+    dados = strtok(NULL, ",");
+    sprintf(carro->transmissao, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    sprintf(carro->tracao, "%s", dados);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%lf", &carro->consumoCidade);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%lf", &carro->consumoEstrada);
+
+    dados = strtok(NULL, ",");
+    sscanf(dados, "%lf", &carro->co2);
+
+    dados = strtok(NULL, ",");
+    if (strcmp(dados, "true") == 0)
+    {
+        carro->turbo = true;
+    }
+    else
+    {
+        carro->turbo = false;
+    }
+
+    dados = strtok(NULL, ",");
+    dados[10] = '\0';
+
+    carro->dataRegistro = parseData(dados);
+
+    char *partes = strtok(combTemp, ";");
+    carro->numCombustivel = 0;
+
+    while (partes != NULL)
+    {
+        sprintf(carro->combustivel[carro->numCombustivel], "%s", partes);
+        carro->numCombustivel++;
+        partes = strtok(NULL, ";");
+    }
+    return carro;
 }
 
-Veiculo* parseVeiculo(char* s){
-	static Veiculo v;
-	char copia[1024];
-	char* campos[15];
-	int qtd = 0;
+void formatVeiculo(Veiculo *carro, char *resultado)
+{
 
-	sprintf(copia, "%.*s", 1024 - 1, s);
+    char data[20];
+    formatData(carro->dataRegistro, data);
 
-	char* token = strtok(copia, ",");
-	while (token != NULL && qtd < 15) {
-		campos[qtd] = token;
-		qtd++;
-		token = strtok(NULL, ",");
-	}
+    char combustivel[200];
+    int pos = 0;
 
-	if (qtd < 15) {
-		return NULL;
-	}
+    sprintf(combustivel + pos, "[");
+    pos++;
 
-	sscanf(campos[0], "%d", &v.id);
-	sprintf(v.marca, "%.*s", 100 - 1, campos[1]);
-	sprintf(v.modelo, "%.*s", 100 - 1, campos[2]);
-	sscanf(campos[3], "%d", &v.ano);
-	sprintf(v.categoria, "%.*s", 100 - 1, campos[4]);
+    for (int i = 0; i < carro->numCombustivel; i++)
+    {
+        if (i > 0)
+        {
+            pos += sprintf(combustivel + pos, ",%s", carro->combustivel[i]);
+        }
+        else
+        {
+            pos += sprintf(combustivel + pos, "%s", carro->combustivel[i]);
+        }
+    }
+    pos += sprintf(combustivel + pos, "]");
 
-	for (int i = 0; i < 5; i++) {
-		v.combustivel[i][0] = '\0';
-	}
-	int j = 0;
-	char* fuel = strtok(campos[5], ";");
-	while (fuel != NULL && j < 5) {
-		sprintf(v.combustivel[j], "%.*s", 100 - 1, fuel);
-		j++;
-		fuel = strtok(NULL, ";");
-	}
+    char turbo[10];
+    if (carro->turbo)
+    {
+        sprintf(turbo, "true");
+    }
+    else
+    {
+        sprintf(turbo, "false");
+    }
 
-	sscanf(campos[6], "%d", &v.cilindros);
-	sscanf(campos[7], "%lf", &v.cilindrada);
-	sprintf(v.transmissao, "%.*s", 100 - 1, campos[8]);
-	sprintf(v.tracao, "%.*s", 100 - 1, campos[9]);
-	sscanf(campos[10], "%lf", &v.consumoCidade);
-	sscanf(campos[11], "%lf", &v.consumoEstrada);
-	sscanf(campos[12], "%lf", &v.co2);
-	v.turbo = (campos[13][0] == 't' || campos[13][0] == 'T');
-	v.dataRegistro = parseData(campos[14]);
-
-	return &v;
+    sprintf(resultado, "[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %.1lf ## %s ## %s ## %.2lf ## %.2lf ## %.1lf ## %s ## %s]", carro->id, carro->marca, carro->modelo, carro->ano, carro->categoria, combustivel, carro->cilindros, carro->cilindrada, carro->transmissao, carro->tracao, carro->consumoCidade, carro->consumoEstrada, carro->co2, turbo, data);
 }
 
-void formatVeiculo(Veiculo v, char* buffer){
-	char combustivelStr[510];
-	char cilindradaStr[32];
-	char consumoCidadeStr[32];
-	char consumoEstradaStr[32];
-	char co2Str[32];
-	char dataRegistroStr[16];
-	char turboStr[8];
-
-	int pos = sprintf(combustivelStr, "[");
-	for (int i = 0; i < 5 && v.combustivel[i][0] != '\0'; i++) {
-		if (i > 0) {
-			pos += sprintf(combustivelStr + pos, ", ");
-		}
-		pos += sprintf(combustivelStr + pos, "%s", v.combustivel[i]);
-	}
-	sprintf(combustivelStr + pos, "]");
-
-	formatDouble(v.cilindrada, cilindradaStr);
-	formatDouble(v.consumoCidade, consumoCidadeStr);
-	formatDouble(v.consumoEstrada, consumoEstradaStr);
-	formatDouble(v.co2, co2Str);
-	formatData(v.dataRegistro, dataRegistroStr);
-
-	if (v.turbo) {
-		sprintf(turboStr, "true");
-	} else {
-		sprintf(turboStr, "false");
-	}
-
-	sprintf(buffer, "[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %s ## %s ## %s ## %s ## %s ## %s ## %s ## %s]", v.id, v.marca, v.modelo, v.ano, v.categoria, combustivelStr, v.cilindros, cilindradaStr, v.transmissao, v.tracao, consumoCidadeStr, consumoEstradaStr,co2Str, turboStr, dataRegistroStr);
+void limparLinha(char *linha)
+{
+    int i = 0;
+    while (linha[i] != '\0' && linha[i] != '\n' && linha[i] != '\r')
+    {
+        i++;
+    }
+    linha[i] = '\0';
 }
 
-void limparLinha(char* linha){
-	int i = 0;
-	while (linha[i] != '\0' && linha[i] != '\n' && linha[i] != '\r') {
-		i++;
-	}
-	linha[i] = '\0';
+Veiculo *lerCsv(char *a, int *n)
+{
+
+    FILE *arquivo = fopen(a, "r");
+    if (arquivo == NULL)
+    {
+        return NULL;
+    }
+
+    Veiculo *vrum = (Veiculo *)malloc(500 * sizeof(Veiculo));
+
+    char linha[1024];
+
+    if (fgets(linha, sizeof(linha), arquivo) == NULL)
+    {
+        fclose(arquivo);
+        free(vrum);
+        return NULL;
+    }
+
+    *n = 0;
+    while (fgets(linha, sizeof(linha), arquivo) != NULL)
+    {
+        Veiculo *carro = parseVeiculo(linha);
+        if (carro != NULL)
+        {
+            vrum[*n] = *carro;
+            free(carro);
+            (*n)++;
+        }
+    }
+
+    fclose(arquivo);
+    return vrum;
 }
 
-Veiculo* lerCsv(char* caminhoArquivo, int* n){
-	static Veiculo veiculos[5000];
-	char linha[1024];
-	int total = 0;
-	*n = 0;
+void selecao(Veiculo vetor[], int quantidade){
+    char resposta[2000];
+    for (int i = 0; i < quantidade - 1; i++){
+        int menor = i;
+        for (int j = i + 1; j < quantidade; j++)
+        {
+            if (resposta < 0 || (resposta == 0 && vetor[j].id < vetor[menor].id)){
+                menor = j;
+            }
+        }
+        Veiculo tmp = vetor[i];
+        vetor[i] = vetor[menor];
+        vetor[menor] = tmp;
+    }
 
-	FILE* arquivo = fopen(caminhoArquivo, "r");
-	if (arquivo == NULL) {
-		fprintf(stderr, "Arquivo nao encontrado: %s\n", caminhoArquivo);
-		return NULL;
-	}
-
-	if (fgets(linha, 1024, arquivo) != NULL) {
-		while (fgets(linha, 1024, arquivo) != NULL) {
-			limparLinha(linha);
-			if (linha[0] != '\0') {
-				total++;
-			}
-		}
-	}
-
-	rewind(arquivo);
-	int i = 0;
-	if (fgets(linha, 1024, arquivo) != NULL) {
-		while (i < 5000 && fgets(linha, 1024, arquivo) != NULL) {
-			limparLinha(linha);
-			if (linha[0] != '\0') {
-				Veiculo* v = parseVeiculo(linha);
-				if (v != NULL) {
-					veiculos[i] = *v;
-					i++;
-				}
-			}
-		}
-	}
-	fclose(arquivo);
-
-	*n = i;
-	return veiculos;
+    for (int i = 0; i < quantidade; i++){
+        formatVeiculo(&vetor[i], resposta);
+        printf("%s\n", resposta);
+    }
 }
 
-void selecao(Veiculo.veiculos){
-	for (int i = 0; i < 500; i++){
-		int menor = i
-		for (int j = 0; j < 500; j++){	
-			if (strcmp(veiculos[j].modelo, veiculos[menor].modelo) < 0){
-				menor = j;
-			}	
-		Veiculo temp = carro[i];
-		carro[i] = carro[menor];
-		carro[menor] = temp;	
-		}
-	}
-}
+int main()
+{
+    int n = 0;
+    Veiculo *veiculos = lerCsv("/tmp/veiculos.csv", &n);
+    Veiculo modelos[100];
+    int quantidade = 0;
+    char ent[100];
 
-int main(){
-	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);		
-	
-	Veiculo carro[500];
-	carro = 
-
-	return 0;
+    while (scanf("%s", ent) != EOF)
+    {
+        int id = atoi(ent);
+        for (int i = 0; i < quantidade; i++)
+        {
+            if (veiculos[i].id == id)
+            {
+                modelos[quantidade] = veiculos[i];
+                quantidade++;
+            }
+        }
+    }
+    selecao(modelos, quantidade);
+    free(veiculos);
 }
