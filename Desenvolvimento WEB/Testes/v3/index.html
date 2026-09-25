@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Nome da empresa — Cardápio Virtual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+    <header class="site-header">
+      <div class="logo-row">
+        <img class="logo-img" src="logo.png" alt="Nome da empresa">
+      </div>
+
+      <nav class="nav" role="tablist" aria-label="Categorias do cardápio">
+        <button class="nav-item active" role="tab" aria-selected="true" id="tab-pratos" aria-controls="page-pratos"
+          data-page="pratos">
+          <span class="icon" aria-hidden="true">🍽️</span> Pratos Principais
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-lanches" aria-controls="page-lanches"
+          data-page="lanches">
+          <span class="icon" aria-hidden="true">🍔</span> Lanches
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-sobremesas" aria-controls="page-sobremesas"
+          data-page="sobremesas">
+          <span class="icon" aria-hidden="true">🍰</span> Sobremesas
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-bebidas" aria-controls="page-bebidas"
+          data-page="bebidas">
+          <span class="icon" aria-hidden="true">🥤</span> Bebidas
+        </button>
+      </nav>
+    </header>
+
+    <div class="content-wrapper">
+      <main>
+        <section class="hero">
+          <div class="hero-logo"><img src="logo.png" alt="Nome da empresa"></div>
+          <div class="hero-text">
+            <h1>Nome da empresa</h1>
+            <p>Descrição sobre a empresa e o cardápio</p>
+          </div>
+        </section>
+
+        <div id="pagesContainer"></div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-info">
+          <p>Endereço da empresa.</p>
+          <p>Telefone da empresa.</p>
+        </div>
+        <nav class="footer-social" aria-label="Redes sociais">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+        </nav>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    const menuData = [
+      {
+        id: 'pratos', title: 'Pratos Principais', icon: '🍽️',
+        tagline: 'Descrição sobre os Pratos Principais.',
+        items: [
+          { id: 'p1', name: 'Prato1', desc: 'Descrição sobre o Prato1.', price: 10.00 },
+          { id: 'p2', name: 'Prato2', desc: 'Descrição sobre o Prato2.', price: 10.00 },
+          { id: 'p3', name: 'Prato3', desc: 'Descrição sobre o Prato3.', price: 10.00 },
+        ],
+      },
+      {
+        id: 'lanches', title: 'Lanches', icon: '🍔',
+        tagline: 'Descrição sobre os Lanches.',
+        items: [
+          { id: 'l1', name: 'Lanche1', desc: 'Descrição sobre o Lanche1.', price: 10.00 },
+          { id: 'l2', name: 'Lanche2', desc: 'Descrição sobre o Lanche2.', price: 10.00 },
+          { id: 'l3', name: 'Lanche3', desc: 'Descrição sobre o Lanche3.', price: 10.00 },
+          { id: 'l4', name: 'Lanche4', desc: 'Descrição sobre o Lanche4.', price: 10.00 },
+          { id: 'l5', name: 'Lanche5', desc: 'Descrição sobre o Lanche5.', price: 10.00 },
+        ],
+      },
+      {
+        id: 'sobremesas', title: 'Sobremesas', icon: '🍰',
+        tagline: 'Descrição sobre as Sobremesas.',
+        items: [
+          { id: 's1', name: 'Sobremesa1', desc: 'Descrição sobre a Sobremesa1.', price: 10.00 },
+          { id: 's2', name: 'Sobremesa2', desc: 'Descrição sobre a Sobremesa2.', price: 10.00 },
+          { id: 's3', name: 'Sobremesa3', desc: 'Descrição sobre a Sobremesa3.', price: 10.00 },
+        ],
+      },
+      {
+        id: 'bebidas', title: 'Bebidas', icon: '🥤',
+        tagline: 'Descrição sobre as Bebidas.',
+        items: [
+          { id: 'b1', name: 'Bebida1', desc: 'Descrição sobre a Bebida1.', price: 10.00 },
+          { id: 'b2', name: 'Bebida2', desc: 'Descrição sobre a Bebida2.', price: 10.00 },
+          { id: 'b3', name: 'Bebida3', desc: 'Descrição sobre a Bebida3.', price: 10.00 },
+          { id: 'b4', name: 'Bebida4', desc: 'Descrição sobre a Bebida4.', price: 10.00 },
+        ],
+      },
+    ];
+
+    function formatPrice(v) {
+      return 'R$ ' + v.toFixed(2).replace('.', ',');
+    }
+
+    function renderPages() {
+      const container = document.getElementById('pagesContainer');
+      container.innerHTML = menuData.map((cat, i) => `
+      <section class="page${i === 0 ? ' active' : ''}" id="page-${cat.id}" role="tabpanel" aria-labelledby="tab-${cat.id}">
+        <div class="page-header">
+          <h2><span aria-hidden="true">${cat.icon}</span> ${cat.title}</h2>
+          <p>${cat.tagline}</p>
+        </div>
+        <ul class="card-grid">
+          ${cat.items.map(item => `
+            <li class="card">
+              <div class="card-image"><img src="image.png" alt="${item.name}"></div>
+              <div class="card-info">
+                <div class="name">${item.name}</div>
+                <div class="desc">${item.desc}</div>
+                <div class="price">${formatPrice(item.price)}</div>
+              </div>
+            </li>
+          `).join('')}
+        </ul>
+      </section>
+    `).join('');
+    }
+
+    function switchPage(pageId) {
+      const cat = menuData.find(c => c.id === pageId);
+      if (!cat) return;
+
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.toggle('active', p.id === 'page-' + pageId);
+      });
+
+      document.querySelectorAll('.nav-item').forEach(n => {
+        const isActive = n.dataset.page === pageId;
+        n.classList.toggle('active', isActive);
+        n.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+
+      document.title = cat.title + ' — Nome da empresa';
+    }
+
+    function setupNav() {
+      document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => switchPage(item.dataset.page));
+      });
+    }
+
+    renderPages();
+    setupNav();
+    switchPage('pratos');
+  </script>
+
+</body>
+
+</html>

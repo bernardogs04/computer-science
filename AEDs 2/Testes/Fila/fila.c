@@ -36,7 +36,7 @@ void imprimirVetor(){
 int main(){
 	int valor, opcao, valorRetirado;
 
-	printf("0-Sair, 1-Inserir (enqueue), 2-Remover (dequeue)\n");
+	printf("0-Sair, 1-Inserir, 2-Remover\n");
 	scanf("%d", &opcao);
 
 	while (opcao != 0){

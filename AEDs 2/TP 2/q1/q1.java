@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Locale;
 
 class Veiculo{
 	private int id;
@@ -171,12 +172,12 @@ class Veiculo{
 		for (int i = 0; i < combustivel.length; i++) {
 			combustivelStr += combustivel[i];
 			if (i < combustivel.length - 1) {
-				combustivelStr += ", ";
+				combustivelStr += ",";
 			}
 		}
 		combustivelStr += "]";
 
-		return String.format ("[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %s ## %s ## %s ## %s ## %s ## %s ## %b ## %s]",id, marca, modelo, ano, categoria, combustivelStr, cilindros, cilindrada, transmissao, tracao, consumoCidade, consumoEstrada, co2, turbo, dataRegistro.format());
+		return String.format (Locale.US,"[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %.1f ## %s ## %s ## %.2f ## %.2f ## %.1f ## %b ## %s]",id, marca, modelo, ano, categoria, combustivelStr, cilindros, cilindrada, transmissao, tracao, consumoCidade, consumoEstrada, co2, turbo, dataRegistro.format());
 	}
 }
 
@@ -259,10 +260,10 @@ class LeitorCsv{
 	}
 }
 
-public class Tp2Q1{
+public class Q1{
 	public static void main(String[] args) {
 
-		Veiculo[] veiculos = LeitorCsv.ler("/tmp/veiculos.csv");
+		Veiculo[] veiculos = LeitorCsv.ler("veiculos.csv");
 
 		Scanner scan = new Scanner(System.in);
 
@@ -273,7 +274,6 @@ public class Tp2Q1{
 			for (int i = 0; i < veiculos.length; i++) {
 				if (veiculos[i].getId() == IdProcurar) {
 					System.out.println(veiculos[i].format());
-					break;
 				}
 			}
 			IdProcurar = scan.nextInt();
