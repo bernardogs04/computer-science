@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "plu-cc-2026-2-ti2-4354100"
+assignment: "plu-cc-2026-2-ti2-4354100"
+owner:
+  username: "BernardoMartinsPuc"
+  id: 322088355
+  accepted_at: "2026-09-11T12:47:07Z"
+source:
+  owner: "ICEI-PUC-Minas-CC-TI"
+  owner_id: 60940181
+  repo: "ti2-template-2026-2"
+  branch: "master"

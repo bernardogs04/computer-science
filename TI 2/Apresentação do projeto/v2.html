@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <title>Apresentação - Trabalho Interdisciplinar 2</title>
+    <style>
+        @page {
+            size: 297mm 167mm;
+            /* Proporção Widescreen 16:9 */
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111111;
+            color: #2C3E50;
+        }
+
+        /* Estrutura Base dos Slides */
+        .slide {
+            width: 297mm;
+            height: 167mm;
+            page-break-after: always;
+            position: relative;
+            background-color: #F5F7FA;
+            padding: 16mm 20mm;
+            overflow: hidden;
+        }
+
+        .slide.dark {
+            background-color: #0F2043;
+            color: #FFFFFF;
+        }
+
+        /* Cabeçalho Padronizado */
+        .header {
+            margin-bottom: 8mm;
+            border-bottom: 2px solid #E1E6EB;
+            padding-bottom: 4mm;
+        }
+
+        .header .category {
+            font-size: 11pt;
+            font-weight: 700;
+            color: #C0292B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header .title {
+            font-size: 22pt;
+            font-weight: 700;
+            color: #0F2043;
+            margin-top: 2px;
+        }
+
+        /* Grids e Colunas */
+        .grid-2 {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .col-2 {
+            display: table-cell;
+            width: 48%;
+            vertical-align: top;
+        }
+
+        .col-spacer {
+            display: table-cell;
+            width: 4%;
+        }
+
+        .grid-3 {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .col-3 {
+            display: table-cell;
+            width: 31%;
+            vertical-align: top;
+        }
+
+        .col-3-spacer {
+            display: table-cell;
+            width: 3.5%;
+        }
+
+        /* Cartões Padronizados (100% Homogêneos) */
+        .card {
+            background: #FFFFFF;
+            border-radius: 8px;
+            padding: 18px 22px;
+            border: 1px solid #E1E6EB;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-title {
+            font-size: 13pt;
+            font-weight: 700;
+            color: #C0292B;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #F0F3F6;
+            padding-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .card-title.navy {
+            color: #0F2043;
+        }
+
+        .card-title.blue {
+            color: #2980B9;
+        }
+
+        /* Listas e Textos */
+        ul.slide-list {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        ul.slide-list li {
+            font-size: 11pt;
+            color: #2C3E50;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        ul.slide-list li strong {
+            color: #0F2043;
+        }
+
+        /* Estilos de Personas */
+        .persona-role {
+            font-size: 9pt;
+            font-weight: 700;
+            color: #C0292B;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .persona-name {
+            font-size: 16pt;
+            font-weight: 700;
+            color: #0F2043;
+            margin: 2px 0;
+        }
+
+        .persona-sub {
+            font-size: 10pt;
+            color: #7F8C8D;
+            margin-bottom: 12px;
+        }
+
+        /* Capa */
+        .cover-badge {
+            color: #C0292B;
+            font-weight: 700;
+            font-size: 13pt;
+            letter-spacing: 1px;
+        }
+
+        .cover-title {
+            font-size: 30pt;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin: 15px 0 10px 0;
+            line-height: 1.25;
+        }
+
+        .cover-sub {
+            font-size: 15pt;
+            color: #B0C4DE;
+            margin-bottom: 35px;
+        }
+
+        .cover-team {
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 20px;
+        }
+
+        .cover-team-title {
+            color: #C0292B;
+            font-weight: 700;
+            font-size: 11pt;
+            margin-bottom: 8px;
+        }
+
+        .cover-team-members {
+            font-size: 12pt;
+            color: #E2E8F0;
+            line-height: 1.6;
+        }
+
+        .item-block {
+            margin-bottom: 12px;
+        }
+
+        .item-block label {
+            display: block;
+            font-size: 11pt;
+            font-weight: 700;
+            color: #0F2043;
+            margin-bottom: 2px;
+        }
+
+        .item-block label.red {
+            color: #C0292B;
+        }
+
+        .item-block p {
+            margin: 0;
+            font-size: 10.5pt;
+            color: #2C3E50;
+            line-height: 1.35;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SLIDE 1: Capa -->
+    <div class="slide dark">
+        <div style="margin-top: 8mm;">
+            <div class="cover-badge">PUC MINAS — ICEI</div>
+            <div class="cover-title">Plataforma Integrada de Gestão<br>e Agendamento de Monitorias</div>
+            <div class="cover-sub">Trabalho Interdisciplinar 2</div>
+
+            <div class="cover-team">
+                <div class="cover-team-title">EQUIPE DE DESENVOLVIMENTO</div>
+                <div class="cover-team-members">
+                    • Bernardo Gabriel de Oliveira Fonseca Saldanha<br>
+                    • Bernardo Martins Takahashi Arruda<br>
+                    • Eduardo Pires de Morais<br>
+                    • João Victor Miranda Dorneles<br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Problema e ODS -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Contexto do Problema & Alinhamento com ODS</div>
+        </div>
+        <div class="grid-2">
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title">DESORGANIZAÇÃO NAS MONITORIAS</div>
+                    <ul class="slide-list">
+                        <li><strong>Cenário Atual:</strong> Informações dispersas em redes sociais (WhatsApp), planilhas
+                            e avisos informais.</li>
+                        <li><strong>Gargalo em Provas:</strong> Picos de demanda causam sobrecarga para os monitores.
+                        </li>
+                        <li><strong>Impacto nos Alunos:</strong> Dificuldade para localizar horários, salas e arquivos
+                            de apoio.</li>
+                        <li><strong>Impacto nos Monitores:</strong> Falta de controle de horas prestadas e assédio de
+                            mensagens em horários pessoais.</li>
+                        <li><strong>Impacto na Gestão:</strong> Ausência de relatórios unificados de engajamento e
+                            presença.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-spacer"></div>
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title navy">OBJETIVOS DE DESENVOLVIMENTO SUSTENTÁVEL</div>
+                    <div class="item-block">
+                        <label class="red">ODS 4 — Educação de Qualidade</label>
+                        <p>Garantir o acesso inclusivo e equitativo à educação. A plataforma elimina barreiras de acesso
+                            às monitorias, oferecendo suporte contínuo para a redução da retenção e evasão acadêmica.
+                        </p>
+                    </div>
+                    <div class="item-block" style="margin-top: 15px;">
+                        <label>ODS 9 — Indústria, Inovação e Infraestrutura</label>
+                        <p>Fomentar a inovação e modernizar a infraestrutura acadêmica digital da instituição,
+                            substituindo processos informais por uma solução tecnológica integrada e eficiente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Pesquisa Empírica, Matriz CSD e Stakeholders -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Pesquisa Empírica, Matriz CSD & Stakeholders</div>
+        </div>
+        <div class="grid-3">
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title">ENTREVISTAS QUALITATIVAS</div>
+                    <ul class="slide-list">
+                        <li><strong>Canais:</strong> Uso massivo do WhatsApp sem qualquer padronização ou registro.</li>
+                        <li><strong>Formatos:</strong> Preferência por atendimento presencial para dúvidas complexas e
+                            remoto para dúvidas pontuais.</li>
+                        <li><strong>Principal Dificuldade:</strong> Falta de divulgação das aulas revisionais e
+                            desinformação sobre os horários.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3-spacer"></div>
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title navy">MATRIZ CSD</div>
+                    <ul class="slide-list">
+                        <li><strong>Certeza:</strong> A comunicação atual entre alunos e monitores é ineficiente e
+                            desorganizada.</li>
+                        <li><strong>Dúvida:</strong> Qual será o nível exato de adesão entre o modelo 100% remoto vs.
+                            presencial?</li>
+                        <li><strong>Suposição:</strong> A universidade exigirá validação por e-mail institucional e
+                            integração com o sistema acadêmico.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3-spacer"></div>
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title blue">MAPA DE STAKEHOLDERS</div>
+                    <ul class="slide-list">
+                        <li><strong>Fundamentais:</strong> Alunos (usuários finais) e Monitores (prestadores de
+                            atendimento).</li>
+                        <li><strong>Importantes:</strong> Professores das disciplinas e Coordenação do Curso.</li>
+                        <li><strong>Influenciadores:</strong> Secretaria Acadêmica e Diretoria do ICEI.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Personas -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Mapeamento de Personas do Projeto</div>
+        </div>
+        <div class="grid-3">
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="persona-role">ALUNO</div>
+                    <div class="persona-name">Nathan B. Kalic</div>
+                    <div class="persona-sub">19 anos | Ciência da Computação</div>
+                    <ul class="slide-list">
+                        <li><strong>Perfil:</strong> Focado em sala de aula, esforçado, fica inseguro quando a matéria
+                            acumula.</li>
+                        <li><strong>Objetivos:</strong> Agendamento rápido de aulas e fácil acesso aos avisos de
+                            monitoria.</li>
+                        <li><strong>Dores:</strong> Falta de divulgação de horários e ausência de confirmação do
+                            atendimento.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3-spacer"></div>
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="persona-role" style="color:#0F2043;">MONITOR</div>
+                    <div class="persona-name">Mateus F. Viggiani</div>
+                    <div class="persona-sub">21 anos | Monitor de Programação</div>
+                    <ul class="slide-list">
+                        <li><strong>Perfil:</strong> Analítico, organizado e reservado. Valoriza a eficiência do seu
+                            tempo.</li>
+                        <li><strong>Objetivos:</strong> Centralizar dúvidas em um só canal e organizar sua grade
+                            semanal.</li>
+                        <li><strong>Dores:</strong> Mensagens em redes pessoais e dificuldade para comprovar horas.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-3-spacer"></div>
+            <div class="col-3">
+                <div class="card" style="height: 112mm;">
+                    <div class="persona-role" style="color:#2980B9;">ALUNO / TRABALHADOR</div>
+                    <div class="persona-name">João Pedro Alves</div>
+                    <div class="persona-sub">20 anos | Estudante e Assistente</div>
+                    <ul class="slide-list">
+                        <li><strong>Perfil:</strong> Rotina corrida conciliando trabalho, estudo e compromissos.</li>
+                        <li><strong>Objetivos:</strong> Visualizar horários em local único e tirar dúvidas remotamente.
+                        </li>
+                        <li><strong>Dores:</strong> Pouco tempo livre para aguardar em filas presenciais.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Proposta de Valor (TOTALMENTE PADRONIZADA COM AS MESMAS DIMENSÕES E ESTILOS) -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Proposta de Valor Integrada & Solução Padronizada</div>
+        </div>
+        <div class="grid-2">
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title">PROPOSTA DE VALOR PARA O ALUNO</div>
+                    <div class="item-block">
+                        <label>Alívio das Dores:</label>
+                        <p>Fim da incerteza sobre horários e locais; eliminação de filas e deslocamentos desnecessários.
+                        </p>
+                    </div>
+                    <div class="item-block">
+                        <label>Geradores de Ganhos:</label>
+                        <p>Centralização de informações, agendamento prévio com confirmação e acesso fácil a materiais
+                            de estudo.</p>
+                    </div>
+                    <div class="item-block">
+                        <label class="red">Solução Entregue:</label>
+                        <p>Portal unificado com busca por disciplina, avisos automáticos e suporte às modalidades
+                            presencial e remota.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-spacer"></div>
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title navy">PROPOSTA DE VALOR PARA MONITOR E CURSO</div>
+                    <div class="item-block">
+                        <label class="red">Alívio das Dores:</label>
+                        <p>Fim de contatos em redes pessoais e eliminação do preenchimento manual de relatórios de
+                            horas.</p>
+                    </div>
+                    <div class="item-block">
+                        <label class="red">Geradores de Ganhos:</label>
+                        <p>Organização automatizada da agenda semanal e controle prévio das dúvidas cadastradas pelos
+                            alunos.</p>
+                    </div>
+                    <div class="item-block">
+                        <label>Solução Entregue:</label>
+                        <p>Painel de gestão para monitores, canal unificado de atendimento e relatórios de presença
+                            automatizados para os professores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Histórias de Usuário -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Histórias de Usuário (User Stories)</div>
+        </div>
+        <div class="card" style="margin-bottom: 12px;">
+            <div class="card-title" style="margin-bottom:6px; border:none; padding:0;">PERSPECTIVA DOS ALUNOS</div>
+            <ul class="slide-list">
+                <li>Como aluno, quero agendar um horário de monitoria com antecedência para garantir atendimento sem
+                    filas.</li>
+                <li>Como aluno, quero enviar dúvidas por mensagem ao monitor para tirar questões sem precisar ir
+                    presencialmente.</li>
+                <li>Como aluno, quero acessar os materiais disponibilizados pelos monitores para revisar o conteúdo
+                    antes das provas.</li>
+            </ul>
+        </div>
+        <div class="card" style="margin-bottom: 12px;">
+            <div class="card-title navy" style="margin-bottom:6px; border:none; padding:0;">PERSPECTIVA DOS MONITORES
+            </div>
+            <ul class="slide-list">
+                <li>Como monitor, quero cadastrar e editar meus horários de atendimento semanal para que os alunos
+                    saibam minha disponibilidade.</li>
+                <li>Como monitor, quero visualizar a lista de alunos agendados e dúvidas para me preparar antes dos
+                    atendimentos.</li>
+                <li>Como monitor, quero registrar a presença dos alunos e gerar relatórios mensais para comprovação de
+                    horas.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-title blue" style="margin-bottom:6px; border:none; padding:0;">PERSPECTIVA DOS PROFESSORES
+            </div>
+            <ul class="slide-list">
+                <li>Como professor, quero cadastrar os monitores da disciplina para associá-los formalmente no início do
+                    semestre.</li>
+                <li>Como professor, quero solicitar tópicos específicos para aulas revisionais para alinhar o conteúdo
+                    com as provas.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Requisitos -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Especificação de Requisitos do Sistema</div>
+        </div>
+        <div class="grid-2">
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title">REQUISITOS FUNCIONAIS (RF)</div>
+                    <ul class="slide-list">
+                        <li><strong>RF-01 Contato com Monitores:</strong> Permitir troca de mensagens diretas entre
+                            aluno e monitor.</li>
+                        <li><strong>RF-02 Acesso à Informação:</strong> Exibir horários, locais, disciplinas e aulas
+                            revisionais.</li>
+                        <li><strong>RF-03 Divulgação:</strong> Enviar notificações alertando sobre horários disponíveis.
+                        </li>
+                        <li><strong>RF-04 Centralização de Conteúdos:</strong> Diretório unificado por disciplina para
+                            arquivos e listas.</li>
+                        <li><strong>RF-05 Disparo Multicanal:</strong> Comunicados e lembretes por e-mail e canais
+                            oficiais.</li>
+                        <li><strong>RF-06 Cadastro Individual:</strong> Registro de usuários, perfil e controle de
+                            presenças.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-spacer"></div>
+            <div class="col-2">
+                <div class="card" style="height: 112mm;">
+                    <div class="card-title navy">REQUISITOS NÃO FUNCIONAIS (RNF)</div>
+                    <ul class="slide-list">
+                        <li><strong>RNF-01 Responsividade:</strong> Interface adaptada para smartphones, tablets e
+                            desktops.</li>
+                        <li><strong>RNF-02 Disponibilidade:</strong> Sistema operando 24 horas por dia, 7 dias por
+                            semana.</li>
+                        <li><strong>RNF-03 Tempo Real:</strong> Sincronização instantânea de horários e avisos de sala.
+                        </li>
+                        <li><strong>RNF-04 Integração Multiplataforma:</strong> Envio de avisos via e-mail e canais
+                            integrados.</li>
+                        <li><strong>RNF-05 Validação de Perfil:</strong> Autenticação via e-mail institucional PUC
+                            Minas.</li>
+                        <li><strong>RNF-06 Armazenamento:</strong> Suporte a upload de arquivos até 20MB por disciplina.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Priorização MoSCoW -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">Priorização de Requisitos (Matriz MoSCoW)</div>
+        </div>
+        <div class="grid-2" style="margin-bottom: 12px;">
+            <div class="col-2">
+                <div class="card" style="height: 51mm;">
+                    <div class="card-title" style="margin-bottom:6px;">OBRIGATÓRIOS (MUST HAVE)</div>
+                    <ul class="slide-list">
+                        <li>RF-01 Contato com Monitores | RF-02 Acesso à Informação</li>
+                        <li>RNF-01 Responsividade | RNF-02 Disponibilidade 24/7</li>
+                        <li>RNF-03 Atualização em Tempo Real</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-spacer"></div>
+            <div class="col-2">
+                <div class="card" style="height: 51mm;">
+                    <div class="card-title navy" style="margin-bottom:6px;">IMPORTANTES (SHOULD HAVE)</div>
+                    <ul class="slide-list">
+                        <li>RF-04 Centralização de Conteúdos | RF-05 Disparo Multicanal</li>
+                        <li>RF-06 Cadastro Individual | RNF-06 Armazenamento</li>
+                        <li>RNF-07 Gerenciamento de Espaço</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="col-2">
+                <div class="card" style="height: 51mm;">
+                    <div class="card-title blue" style="margin-bottom:6px;">DESEJÁVEIS (COULD HAVE)</div>
+                    <ul class="slide-list">
+                        <li>RF-07 Tópicos e Anexos Temporários</li>
+                        <li>RNF-04 Integração Multiplataforma</li>
+                        <li>RNF-05 Validação de Perfil via E-mail</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-spacer"></div>
+            <div class="col-2">
+                <div class="card" style="height: 51mm;">
+                    <div class="card-title" style="color:#7F8C8D; margin-bottom:6px;">OPCIONAIS (WOULD HAVE)</div>
+                    <ul class="slide-list">
+                        <li>RF-03 Divulgação Ampliada em Redes</li>
+                        <li>Módulos avançados de relatórios e métricas de desempenho</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: Roadmap -->
+    <div class="slide">
+        <div class="header">
+            <div class="category">TRABALHO INTERDISCIPLINAR 2</div>
+            <div class="title">User Story Map & Roadmap de Entregas (Releases)</div>
+        </div>
+        <div class="card" style="margin-bottom: 12px;">
+            <div class="card-title" style="margin-bottom:6px; border:none; padding:0;">RELEASE 1 — MPV (MÍNIMO PRODUTO
+                VIÁVEL)</div>
+            <ul class="slide-list">
+                <li>Cadastro e login com perfis diferenciados (Aluno e Monitor).</li>
+                <li>Cadastro da grade de horários do monitor e consulta de locais de atendimento.</li>
+                <li>Visualização/download de materiais básicos e comprovação automatizada de horas do monitor.</li>
+            </ul>
+        </div>
+        <div class="card" style="margin-bottom: 12px;">
+            <div class="card-title navy" style="margin-bottom:6px; border:none; padding:0;">RELEASE 2 — EXPANSÃO E
+                ENGAJAMENTO</div>
+            <ul class="slide-list">
+                <li>Agendamento prévio de horários, disparo de notificações multicanais e histórico de dúvidas.</li>
+                <li>Diretório centralizado por disciplina organizado em pastas.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-title blue" style="margin-bottom:6px; border:none; padding:0;">RELEASE 3 — REFINAMENTO E
+                ANALYTICS</div>
+            <ul class="slide-list">
+                <li>Sincronização da agenda em tempo real, painel de métricas da turma e relatórios exportáveis.</li>
+                <li>Envio de anexos temporários e prints durante os atendimentos.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: Conclusão -->
+    <div class="slide dark">
+        <div style="margin-top: 5mm;">
+            <div class="cover-badge">CONCLUSÃO & PRÓXIMOS PASSOS</div>
+            <div class="cover-title" style="font-size:24pt;">Transformando a Experiência de Monitoria na PUC Minas</div>
+
+            <div style="margin-top:22px;">
+                <div style="margin-bottom: 14px;">
+                    <strong style="color:#C0292B; font-size:12.5pt;">• Impacto Esperado:</strong>
+                    <p style="font-size:11pt; color:#E2E8F0; margin:2px 0 0 15px;">Otimização do tempo de alunos e
+                        monitores, eliminação de filas em épocas de prova e maior transparência pedagógica.</p>
+                </div>
+                <div style="margin-bottom: 14px;">
+                    <strong style="color:#C0292B; font-size:12.5pt;">• Ganhos de Gestão:</strong>
+                    <p style="font-size:11pt; color:#E2E8F0; margin:2px 0 0 15px;">Eliminação de processos manuais para
+                        contagem de horas e disponibilização de relatórios em tempo real para professores e coordenação.
+                    </p>
+                </div>
+                <div style="margin-bottom: 14px;">
+                    <strong style="color:#C0292B; font-size:12.5pt;">• Próxima Etapa:</strong>
+                    <p style="font-size:11pt; color:#E2E8F0; margin:2px 0 0 15px;">Desenvolvimento do protótipo
+                        funcional do MPV (Release 1) e validação com turmas piloto do ICEI.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
