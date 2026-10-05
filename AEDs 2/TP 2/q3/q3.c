@@ -209,9 +209,9 @@ void selecao(Veiculo vetor[], int quantidade){
     char resposta[2000];
     for (int i = 0; i < quantidade - 1; i++){
         int menor = i;
-        for (int j = i + 1; j < quantidade; j++)
-        {
-            if (resposta < 0 || (resposta == 0 && vetor[j].id < vetor[menor].id)){
+                for (int j = i + 1; j < quantidade; j++){
+            int cmp = strcasecmp(vetor[j].modelo, vetor[menor].modelo);
+            if (cmp < 0 || (cmp == 0 && vetor[j].id < vetor[menor].id)){
                 menor = j;
             }
         }

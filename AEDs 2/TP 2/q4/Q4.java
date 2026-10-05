@@ -258,23 +258,53 @@ class LeitorCsv{
 	}
 }
 
-public class Q1{
-	public static void main(String[] args) {
+public class Q4{
+
+	public static void ordenar(Veiculo[] veiculos){
+		for (int i = 1; i < veiculos.length; i++) {
+			Veiculo atual = veiculos[i];
+			String chave = atual.getMarca();
+
+			int j = i - 1;
+			while (j >= 0 && veiculos[j].getMarca().compareTo(chave) > 0) {
+				veiculos[j + 1] = veiculos[j];
+				j--;
+			}
+			veiculos[j + 1] = atual;
+		}
+	}
+
+		public static void main(String[] args) {
 
 		Veiculo[] veiculos = LeitorCsv.ler("/tmp/veiculos.csv");
 
 		Scanner scan = new Scanner(System.in);
 
-		int IdProcurar = scan.nextInt();
+		Veiculo[] encontrados = new Veiculo[veiculos.length];
+		int quantidade = 0;
 
-		while (IdProcurar != -1) {
+		int idProcurar = scan.nextInt();
+
+		while (idProcurar != -1) {
 			for (int i = 0; i < veiculos.length; i++) {
-				if (veiculos[i].getId() == IdProcurar) {
-					System.out.println(veiculos[i].format());
+				if (veiculos[i].getId() == idProcurar) {
+					encontrados[quantidade] = veiculos[i];
+					quantidade++;
 				}
 			}
-			IdProcurar = scan.nextInt();
+			idProcurar = scan.nextInt();
 		}
 		scan.close();
+
+		Veiculo[] selecionados = new Veiculo[quantidade];
+		for (int i = 0; i < quantidade; i++) {
+			selecionados[i] = encontrados[i];
+		}
+
+		ordenar(selecionados);
+
+		for (int i = 0; i < selecionados.length; i++) {
+			System.out.println(selecionados[i].format());
+		}
 	}
 }

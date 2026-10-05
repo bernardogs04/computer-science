@@ -258,23 +258,97 @@ class LeitorCsv{
 	}
 }
 
-public class Q1{
+public class Q7{
+
+	private static void insercao(Veiculo[] veiculos){
+		for (int i = 1; i < veiculos.length; i++) {
+			Veiculo atual = veiculos[i];
+			double chave = atual.getCilindrada();
+
+			int j = i - 1;
+			while (j >= 0 && veiculos[j].getCilindrada() > chave) {
+				veiculos[j + 1] = veiculos[j];
+				j--;
+			}
+			veiculos[j + 1] = atual;
+		}
+	}
+
+	public static void bucket(Veiculo[] veiculos){
+		int n = veiculos.length;
+		int numBaldes = 10;
+		double normalizador = 8.1;
+
+		int[] indiceBalde = new int[n];
+		int[] contagem = new int[numBaldes];
+
+		for (int i = 0; i < n; i++) {
+			int indice = (int) (numBaldes * (veiculos[i].getCilindrada() / normalizador));
+			if (indice >= numBaldes) {
+				indice = numBaldes - 1;
+			}
+			if (indice < 0) {
+				indice = 0;
+			}
+			indiceBalde[i] = indice;
+			contagem[indice]++;
+		}
+
+		Veiculo[][] baldes = new Veiculo[numBaldes][];
+		for (int b = 0; b < numBaldes; b++) {
+			baldes[b] = new Veiculo[contagem[b]];
+		}
+
+		int[] posicaoAtual = new int[numBaldes];
+		for (int i = 0; i < n; i++) {
+			int b = indiceBalde[i];
+			baldes[b][posicaoAtual[b]] = veiculos[i];
+			posicaoAtual[b]++;
+		}
+
+		for (int b = 0; b < numBaldes; b++) {
+			insercao(baldes[b]);
+		}
+
+		int pos = 0;
+		for (int b = 0; b < numBaldes; b++) {
+			for (int i = 0; i < baldes[b].length; i++) {
+				veiculos[pos] = baldes[b][i];
+				pos++;
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 
 		Veiculo[] veiculos = LeitorCsv.ler("/tmp/veiculos.csv");
 
 		Scanner scan = new Scanner(System.in);
 
-		int IdProcurar = scan.nextInt();
+		Veiculo[] vrum = new Veiculo[veiculos.length];
+		int n = 0;
 
-		while (IdProcurar != -1) {
+		int id = scan.nextInt();
+		while (id != -1) {
 			for (int i = 0; i < veiculos.length; i++) {
-				if (veiculos[i].getId() == IdProcurar) {
-					System.out.println(veiculos[i].format());
+				if (veiculos[i].getId() == id) {
+					vrum[n] = veiculos[i];
+					n++;
 				}
 			}
-			IdProcurar = scan.nextInt();
+			id = scan.nextInt();
 		}
 		scan.close();
+
+		Veiculo[] selecionados = new Veiculo[n];
+		for (int i = 0; i < n; i++) {
+			selecionados[i] = vrum[i];
+		}
+
+		bucket(selecionados);
+
+		for (int i = 0; i < selecionados.length; i++) {
+			System.out.println(selecionados[i].format());
+		}
 	}
 }

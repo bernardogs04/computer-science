@@ -182,23 +182,89 @@ Veiculo* lerCsv(char* a, int* n) {
     return vrum;
 }
 
+void selecao(Veiculo* veiculos, int n){
+
+    for (int i = 0; i < n - 1; i++) {
+        int menor = i;
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(veiculos[j].modelo, veiculos[menor].modelo) < 0) {
+                menor = j;
+            }
+        }
+        if (menor != i) {
+            Veiculo temp = veiculos[i];
+            veiculos[i] = veiculos[menor];
+            veiculos[menor] = temp;
+        }
+    }
+}
+
+int binaria(Veiculo* veiculos, int n, char* chave){
+
+    int inicio = 0;
+    int fim = n - 1;
+
+    while (inicio <= fim) {
+        int meio = (inicio + fim) / 2;
+        int cmp = strcmp(veiculos[meio].modelo, chave);
+
+        if (cmp == 0) {
+            return meio;
+        } else if (cmp < 0) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+
+    return -1;
+}
+
 int main(){
 	int n = 0;
 	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);
 
 	char ent[100];
-	char res[2048];
 
-	while (scanf("%s", ent) != EOF && strcmp(ent, "FIM") != 0) {
+	Veiculo* vrum = (Veiculo*) malloc(n * sizeof(Veiculo));
+	int total = 0;
+
+	while (scanf("%s", ent) != EOF) {
         int id = atoi(ent);
+
+        if (id == -1) {
+            break;
+        }
 
         for (int i = 0; i < n; i++) {
             if (veiculos[i].id == id) {
-                formatVeiculo(&veiculos[i], res);
-                printf("%s\n", res);
+                vrum[total] = veiculos[i];
+                total++;
             }
         }
     }
 
+    selecao(vrum, total);
+
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+
+    char linhaBusca[200];
+
+    while (fgets(linhaBusca, sizeof(linhaBusca), stdin) != NULL) {
+        limparLinha(linhaBusca);
+
+        if (strcmp(linhaBusca, "FIM") == 0) {
+            break;
+        }
+
+        if (binaria(vrum, total, linhaBusca) != -1) {
+            printf("SIM\n");
+        } else {
+            printf("NAO\n");
+        }
+    }
+
+    free(vrum);
     free(veiculos);
 }

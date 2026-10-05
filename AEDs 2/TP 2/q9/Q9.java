@@ -258,23 +258,134 @@ class LeitorCsv{
 	}
 }
 
-public class Q1{
+
+class ListaVeiculos{
+	private Veiculo[] dados;
+	private int n;
+	private int capacidade = 1000;
+
+	public ListaVeiculos(){
+		dados = new Veiculo[capacidade];
+		n = 0;
+	}
+
+	public int getN(){
+		return n;
+	}
+
+	public Veiculo getPosicao(int posicao){
+		return dados[posicao];
+	}
+
+	public void inserirInicio(Veiculo veiculo){
+		for (int i = n; i > 0; i--) {
+			dados[i] = dados[i - 1];
+		}
+		dados[0] = veiculo;
+		n++;
+	}
+
+	public void inserir(Veiculo veiculo, int posicao){
+		for (int i = n; i > posicao; i--) {
+			dados[i] = dados[i - 1];
+		}
+		dados[posicao] = veiculo;
+		n++;
+	}
+
+	public void inserirFim(Veiculo veiculo){
+		dados[n] = veiculo;
+		n++;
+	}
+
+	public Veiculo removerInicio(){
+		Veiculo removido = dados[0];
+		for (int i = 0; i < n - 1; i++) {
+			dados[i] = dados[i + 1];
+		}
+		n--;
+		return removido;
+	}
+
+	public Veiculo remover(int posicao){
+		Veiculo removido = dados[posicao];
+		for (int i = posicao; i < n - 1; i++) {
+			dados[i] = dados[i + 1];
+		}
+		n--;
+		return removido;
+	}
+
+	public Veiculo removerFim(){
+		Veiculo removido = dados[n - 1];
+		n--;
+		return removido;
+	}
+}
+
+public class Q9{
+
+	private static Veiculo id(Veiculo[] veiculos, int id){
+		for (int i = 0; i < veiculos.length; i++) {
+			if (veiculos[i].getId() == id) {
+				return veiculos[i];
+			}
+		}
+		return null;
+	}
+
 	public static void main(String[] args) {
 
 		Veiculo[] veiculos = LeitorCsv.ler("/tmp/veiculos.csv");
 
 		Scanner scan = new Scanner(System.in);
 
-		int IdProcurar = scan.nextInt();
+		ListaVeiculos lista = new ListaVeiculos();
 
-		while (IdProcurar != -1) {
+		int idProcurado = scan.nextInt();
+		while (idProcurado != -1) {
 			for (int i = 0; i < veiculos.length; i++) {
-				if (veiculos[i].getId() == IdProcurar) {
-					System.out.println(veiculos[i].format());
+				if (veiculos[i].getId() == idProcurado) {
+					lista.inserirFim(veiculos[i]);
 				}
 			}
-			IdProcurar = scan.nextInt();
+			idProcurado = scan.nextInt();
 		}
+
+		int qtdComandos = scan.nextInt();
+
+		for (int c = 0; c < qtdComandos; c++) {
+			String comando = scan.next();
+			Veiculo removido = null;
+
+			if (comando.equals("II")) {
+				int id = scan.nextInt();
+				lista.inserirInicio(id(veiculos, id));
+			} else if (comando.equals("I*")) {
+				int posicao = scan.nextInt();
+				int id = scan.nextInt();
+				lista.inserir(id(veiculos, id), posicao);
+			} else if (comando.equals("IF")) {
+				int id = scan.nextInt();
+				lista.inserirFim(id(veiculos, id));
+			} else if (comando.equals("RI")) {
+				removido = lista.removerInicio();
+			} else if (comando.equals("R*")) {
+				int posicao = scan.nextInt();
+				removido = lista.remover(posicao);
+			} else if (comando.equals("RF")) {
+				removido = lista.removerFim();
+			}
+
+			if (removido != null) {
+				System.out.println("(R)" + removido.getMarca() + " " + removido.getModelo());
+			}
+		}
+
+		for (int i = 0; i < lista.getN(); i++) {
+			System.out.println(lista.getPosicao(i).format());
+		}
+
 		scan.close();
 	}
 }

@@ -182,6 +182,49 @@ Veiculo* lerCsv(char* a, int* n) {
     return vrum;
 }
 
+void contagemPorDigito(Veiculo* veiculos, int n, int exp){
+
+    Veiculo* saida = (Veiculo*) malloc(n * sizeof(Veiculo));
+    int contagem[10] = {0};
+
+    for (int i = 0; i < n; i++) {
+        int digito = (veiculos[i].ano / exp) % 10;
+        contagem[digito]++;
+    }
+
+    for (int i = 1; i < 10; i++) {
+        contagem[i] += contagem[i - 1];
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        int digito = (veiculos[i].ano / exp) % 10;
+        contagem[digito]--;
+        saida[contagem[digito]] = veiculos[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        veiculos[i] = saida[i];
+    }
+
+    free(saida);
+}
+
+void ordenar(Veiculo* veiculos, int n){
+
+    if (n <= 0) return;
+
+    int max = veiculos[0].ano;
+    for (int i = 1; i < n; i++) {
+        if (veiculos[i].ano > max) {
+            max = veiculos[i].ano;
+        }
+    }
+
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        contagemPorDigito(veiculos, n, exp);
+    }
+}
+
 int main(){
 	int n = 0;
 	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);
@@ -189,16 +232,27 @@ int main(){
 	char ent[100];
 	char res[2048];
 
+	Veiculo* vrum = (Veiculo*) malloc(n * sizeof(Veiculo));
+	int total = 0;
+
 	while (scanf("%s", ent) != EOF && strcmp(ent, "FIM") != 0) {
         int id = atoi(ent);
 
         for (int i = 0; i < n; i++) {
             if (veiculos[i].id == id) {
-                formatVeiculo(&veiculos[i], res);
-                printf("%s\n", res);
+                vrum[total] = veiculos[i];
+                total++;
             }
         }
     }
 
+    ordenar(vrum, total);
+
+    for (int i = 0; i < total; i++) {
+        formatVeiculo(&vrum[i], res);
+        printf("%s\n", res);
+    }
+
+    free(vrum);
     free(veiculos);
 }

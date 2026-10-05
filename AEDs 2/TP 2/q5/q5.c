@@ -143,7 +143,7 @@ void formatVeiculo(Veiculo* carro, char* resultado) {
     sprintf(resultado, "[%d ## %s ## %s ## %d ## %s ## %s ## %d ## %.1lf ## %s ## %s ## %.2lf ## %.2lf ## %.1lf ## %s ## %s]", carro -> id, carro -> marca,carro -> modelo, carro -> ano, carro -> categoria, combustivel, carro -> cilindros, carro -> cilindrada, carro -> transmissao, carro -> tracao, carro -> consumoCidade, carro -> consumoEstrada, carro -> co2, turbo, data);
 }
 
-void limparLinha(char* linha){
+void limpar(char* linha){
 	int i = 0;
 	while (linha[i] != '\0' && linha[i] != '\n' && linha[i] != '\r') {
 		i++;
@@ -182,6 +182,43 @@ Veiculo* lerCsv(char* a, int* n) {
     return vrum;
 }
 
+void ordenar(Veiculo* veiculos, int n){
+
+    if (n <= 0) return;
+
+    int max = veiculos[0].cilindros;
+    for (int i = 1; i < n; i++) {
+        if (veiculos[i].cilindros > max) {
+            max = veiculos[i].cilindros;
+        }
+    }
+
+    int* contagem = (int*) calloc(max + 1, sizeof(int));
+
+    for (int i = 0; i < n; i++) {
+        contagem[veiculos[i].cilindros]++;
+    }
+
+    for (int i = 1; i <= max; i++) {
+        contagem[i] += contagem[i - 1];
+    }
+
+    Veiculo* saida = (Veiculo*) malloc(n * sizeof(Veiculo));
+
+    for (int i = n - 1; i >= 0; i--) {
+        int chave = veiculos[i].cilindros;
+        contagem[chave]--;
+        saida[contagem[chave]] = veiculos[i];
+    }
+
+    for (int i = 0; i < n; i++) {
+        veiculos[i] = saida[i];
+    }
+
+    free(saida);
+    free(contagem);
+}
+
 int main(){
 	int n = 0;
 	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);
@@ -189,16 +226,27 @@ int main(){
 	char ent[100];
 	char res[2048];
 
+	Veiculo* vrum = (Veiculo*) malloc(n * sizeof(Veiculo));
+	int total = 0;
+
 	while (scanf("%s", ent) != EOF && strcmp(ent, "FIM") != 0) {
         int id = atoi(ent);
 
         for (int i = 0; i < n; i++) {
             if (veiculos[i].id == id) {
-                formatVeiculo(&veiculos[i], res);
-                printf("%s\n", res);
+                vrum[total] = veiculos[i];
+                total++;
             }
         }
     }
 
+    ordenar(vrum, total);
+
+    for (int i = 0; i < total; i++) {
+        formatVeiculo(&vrum[i], res);
+        printf("%s\n", res);
+    }
+
+    free(vrum);
     free(veiculos);
 }

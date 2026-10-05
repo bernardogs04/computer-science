@@ -182,6 +182,51 @@ Veiculo* lerCsv(char* a, int* n) {
     return vrum;
 }
 
+tamanhoFila = 5;
+
+typedef struct {
+    Veiculo* dados;
+    int capacidade;
+    int inicio;
+    int quantidade;
+} FilaCircular;
+
+void inicializarFila(FilaCircular* fila, int capacidade){
+    fila -> dados = (Veiculo*) malloc(capacidade * sizeof(Veiculo));
+    fila -> capacidade = capacidade;
+    fila -> inicio = 0;
+    fila -> quantidade = 0;
+}
+
+void liberarFila(FilaCircular* fila){
+    free(fila -> dados);
+}
+
+void desenfileirar(FilaCircular* fila){
+
+    if (fila -> quantidade == 0) {
+        return;
+    }
+
+    Veiculo removido = fila -> dados[fila -> inicio];
+
+    fila -> inicio = (fila -> inicio + 1) % fila -> capacidade;
+    fila -> quantidade--;
+
+    printf("(R)%s %s\n", removido.marca, removido.modelo);
+}
+
+void enfileirar(FilaCircular* fila, Veiculo veiculo){
+
+    if (fila -> quantidade == fila -> capacidade) {
+        desenfileirar(fila);
+    }
+
+    int posicaoFim = (fila -> inicio + fila -> quantidade) % fila -> capacidade;
+    fila -> dados[posicaoFim] = veiculo;
+    fila -> quantidade++;
+}
+
 int main(){
 	int n = 0;
 	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);
@@ -189,16 +234,52 @@ int main(){
 	char ent[100];
 	char res[2048];
 
-	while (scanf("%s", ent) != EOF && strcmp(ent, "FIM") != 0) {
+	FilaCircular fila;
+	inicializarFila(&fila, tamanhoFila);
+
+	while (scanf("%s", ent) != EOF) {
         int id = atoi(ent);
+
+        if (id == -1) {
+            break;
+        }
 
         for (int i = 0; i < n; i++) {
             if (veiculos[i].id == id) {
-                formatVeiculo(&veiculos[i], res);
-                printf("%s\n", res);
+                enfileirar(&fila, veiculos[i]);
             }
         }
     }
 
+    int qtdComandos = 0;
+    scanf("%d", &qtdComandos);
+
+    for (int c = 0; c < qtdComandos; c++) {
+        char comando[10];
+        scanf("%s", comando);
+
+        if (strcmp(comando, "I") == 0) {
+            int id;
+            scanf("%d", &id);
+
+            for (int i = 0; i < n; i++) {
+                if (veiculos[i].id == id) {
+                    enfileirar(&fila, veiculos[i]);
+                }
+            }
+        } else if (strcmp(comando, "R") == 0) {
+            desenfileirar(&fila);
+        }
+    }
+
+    for (int i = 0; i < fila.quantidade; i++) {
+        int indice = (fila.inicio + i) % fila.capacidade;
+        formatVeiculo(&fila.dados[indice], res);
+        printf("%s\n", res);
+    }
+
+    liberarFila(&fila);
     free(veiculos);
+
+    return 0;
 }

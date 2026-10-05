@@ -182,6 +182,80 @@ Veiculo* lerCsv(char* a, int* n) {
     return vrum;
 }
 
+tamanhoFila = 5;
+
+
+typedef struct No {
+    Veiculo dado;
+    struct No* prox;
+} No;
+
+typedef struct {
+    No* inicio;
+    No* fim;
+    int capacidade;
+    int quantidade;
+} Fila;
+
+void inicializarFila(Fila* fila, int capacidade){
+    fila -> inicio = NULL;
+    fila -> fim = NULL;
+    fila -> capacidade = capacidade;
+    fila -> quantidade = 0;
+}
+
+void liberarFila(Fila* fila){
+    No* atual = fila -> inicio;
+    while (atual != NULL) {
+        No* proximo = atual -> prox;
+        free(atual);
+        atual = proximo;
+    }
+    fila -> inicio = NULL;
+    fila -> fim = NULL;
+    fila -> quantidade = 0;
+}
+
+void desenfileirar(Fila* fila){
+
+    if (fila -> quantidade == 0) {
+        return;
+    }
+
+    No* removido = fila -> inicio;
+
+    fila -> inicio = fila -> inicio -> prox;
+    if (fila -> inicio == NULL) {
+        fila -> fim = NULL;
+    }
+    fila -> quantidade--;
+
+    printf("(R)%s %s\n", removido -> dado.marca, removido -> dado.modelo);
+
+    free(removido);
+}
+
+void enfileirar(Fila* fila, Veiculo veiculo){
+
+    if (fila -> quantidade == fila -> capacidade) {
+        desenfileirar(fila);
+    }
+
+    No* novo = (No*) malloc(sizeof(No));
+    novo -> dado = veiculo;
+    novo -> prox = NULL;
+
+    if (fila -> fim == NULL) {
+        fila -> inicio = novo;
+        fila -> fim = novo;
+    } else {
+        fila -> fim -> prox = novo;
+        fila -> fim = novo;
+    }
+
+    fila -> quantidade++;
+}
+
 int main(){
 	int n = 0;
 	Veiculo* veiculos = lerCsv("/tmp/veiculos.csv", &n);
@@ -189,16 +263,53 @@ int main(){
 	char ent[100];
 	char res[2048];
 
-	while (scanf("%s", ent) != EOF && strcmp(ent, "FIM") != 0) {
+	Fila fila;
+	inicializarFila(&fila, tamanhoFila);
+
+	while (scanf("%s", ent) != EOF) {
         int id = atoi(ent);
+
+        if (id == -1) {
+            break;
+        }
 
         for (int i = 0; i < n; i++) {
             if (veiculos[i].id == id) {
-                formatVeiculo(&veiculos[i], res);
-                printf("%s\n", res);
+                enfileirar(&fila, veiculos[i]);
             }
         }
     }
 
+    int qtdComandos = 0;
+    scanf("%d", &qtdComandos);
+
+    for (int c = 0; c < qtdComandos; c++) {
+        char comando[10];
+        scanf("%s", comando);
+
+        if (strcmp(comando, "I") == 0) {
+            int id;
+            scanf("%d", &id);
+
+            for (int i = 0; i < n; i++) {
+                if (veiculos[i].id == id) {
+                    enfileirar(&fila, veiculos[i]);
+                }
+            }
+        } else if (strcmp(comando, "R") == 0) {
+            desenfileirar(&fila);
+        }
+    }
+
+    No* atual = fila.inicio;
+    while (atual != NULL) {
+        formatVeiculo(&atual -> dado, res);
+        printf("%s\n", res);
+        atual = atual -> prox;
+    }
+
+    liberarFila(&fila);
     free(veiculos);
+
+    return 0;
 }

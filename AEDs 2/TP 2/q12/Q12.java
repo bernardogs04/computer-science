@@ -258,23 +258,99 @@ class LeitorCsv{
 	}
 }
 
-public class Q1{
+class No{
+	private Veiculo dado;
+	private No proximo;
+
+	public No(Veiculo dado){
+		this.dado = dado;
+		this.proximo = null;
+	}
+
+	public Veiculo getDado(){
+		return dado;
+	}
+	public No getProximo(){
+		return proximo;
+	}
+	public void setProximo(No a){
+		proximo = a;
+	}
+}
+
+class Pilha{
+	private No topo;
+
+	public Pilha(){
+		topo = null;
+	}
+
+	public No getTopo(){
+		return topo;
+	}
+
+	public void empilhar(Veiculo veiculo){
+		No novo = new No(veiculo);
+		novo.setProximo(topo);
+		topo = novo;
+	}
+
+	public void desempilhar(){
+		if (topo == null) {
+			return;
+		}
+
+		Veiculo removido = topo.getDado();
+		topo = topo.getProximo();
+
+		System.out.println("(R)" + removido.getMarca() + " " + removido.getModelo());
+	}
+}
+
+public class Q12{
 	public static void main(String[] args) {
 
 		Veiculo[] veiculos = LeitorCsv.ler("/tmp/veiculos.csv");
 
 		Scanner scan = new Scanner(System.in);
 
-		int IdProcurar = scan.nextInt();
+		Pilha pilha = new Pilha();
 
-		while (IdProcurar != -1) {
+		int idProcurar = scan.nextInt();
+
+		while (idProcurar != -1) {
 			for (int i = 0; i < veiculos.length; i++) {
-				if (veiculos[i].getId() == IdProcurar) {
-					System.out.println(veiculos[i].format());
+				if (veiculos[i].getId() == idProcurar) {
+					pilha.empilhar(veiculos[i]);
 				}
 			}
-			IdProcurar = scan.nextInt();
+			idProcurar = scan.nextInt();
 		}
+
+		int qtdComandos = scan.nextInt();
+
+		for (int c = 0; c < qtdComandos; c++) {
+			String comando = scan.next();
+
+			if (comando.equals("I")) {
+				int id = scan.nextInt();
+
+				for (int i = 0; i < veiculos.length; i++) {
+					if (veiculos[i].getId() == id) {
+						pilha.empilhar(veiculos[i]);
+					}
+				}
+			} else if (comando.equals("R")) {
+				pilha.desempilhar();
+			}
+		}
+
+		No atual = pilha.getTopo();
+		while (atual != null) {
+			System.out.println(atual.getDado().format());
+			atual = atual.getProximo();
+		}
+
 		scan.close();
 	}
 }
