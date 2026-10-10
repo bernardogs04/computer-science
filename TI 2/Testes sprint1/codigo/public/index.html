@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentora | Início</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+
+    <!-- CABEÇALHO -->
+    <header class="topo">
+      <a href="#" class="perfil" aria-label="Meu perfil">
+        <img id="perfil-foto" src="" alt="" hidden>
+        <span id="perfil-inicial">U</span>
+      </a>
+      <h1 class="saudacao" id="saudacao">Olá!</h1>
+      <button class="tema-toggle" id="btn-tema" type="button" aria-label="Ativar modo claro" aria-pressed="false">
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+      </button>
+      <button class="notif" id="btn-notif" aria-label="Notificações">
+        <i class="fa-solid fa-bell" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+      <!-- Disciplinas do aluno -->
+      <section class="disciplinas" aria-label="Minhas disciplinas">
+        <div class="disciplinas__lista" id="lista-disciplinas"></div>
+      </section>
+
+      <div class="grade">
+        <!-- Próximas tarefas -->
+        <section class="tarefas" aria-labelledby="titulo-tarefas">
+          <h2 id="titulo-tarefas" class="tarefas__titulo">Próximas tarefas</h2>
+          <ul class="tarefas__lista" id="lista-tarefas"></ul>
+        </section>
+
+        <!-- Ações rápidas -->
+        <aside class="acoes" aria-label="Ações rápidas">
+          <button class="acao" data-acao="novo-agendamento">Novo agendamento</button>
+          <button class="acao" data-acao="novo-lembrete">Novo lembrete</button>
+          <button class="acao" data-acao="editar-lembretes">Editar lembretes</button>
+          <button class="acao" data-acao="disciplinas-disponiveis">Disciplinas disponíveis</button>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="lembrete-dialog" id="dialog-lembrete" aria-labelledby="titulo-dialog-lembrete">
+    <form class="lembrete-form" id="form-lembrete">
+      <div class="lembrete-form__cabecalho">
+        <div>
+          <p class="lembrete-form__sobretitulo">Organize sua rotina</p>
+          <h2 id="titulo-dialog-lembrete">Novo lembrete</h2>
+        </div>
+        <button class="lembrete-form__fechar" id="fechar-lembrete" type="button" aria-label="Fechar formulário">&times;</button>
+      </div>
+
+      <label for="lembrete-titulo">Título</label>
+      <input id="lembrete-titulo" name="titulo" type="text" maxlength="120" placeholder="Ex.: Entregar trabalho de cálculo" required>
+
+      <label for="lembrete-descricao">Descrição</label>
+      <textarea id="lembrete-descricao" name="descricao" rows="4" maxlength="500" placeholder="Adicione detalhes importantes"></textarea>
+
+      <label for="lembrete-data">Data e horário</label>
+      <input id="lembrete-data" name="data" type="datetime-local" required>
+
+      <label for="lembrete-tag">Categoria</label>
+      <select id="lembrete-tag" name="tag" required disabled>
+        <option value="" selected hidden></option>
+      </select>
+
+      <p class="lembrete-form__erro" id="erro-lembrete" role="alert" aria-live="polite"></p>
+
+      <div class="lembrete-form__acoes">
+        <button class="lembrete-form__cancelar" id="cancelar-lembrete" type="button">Cancelar</button>
+        <button class="lembrete-form__salvar" id="salvar-lembrete" type="submit">Salvar lembrete</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="lembrete-dialog" id="dialog-selecionar-lembrete" aria-labelledby="titulo-selecao-lembrete">
+    <div class="lembrete-form">
+      <div class="lembrete-form__cabecalho">
+        <div>
+          <p class="lembrete-form__sobretitulo">Seus lembretes</p>
+          <h2 id="titulo-selecao-lembrete">Qual deseja editar?</h2>
+        </div>
+        <button class="lembrete-form__fechar" id="fechar-selecao-lembrete" type="button" aria-label="Fechar seleção">&times;</button>
+      </div>
+
+      <p class="lembrete-selecao__vazio" id="lembretes-sem-itens" hidden>Você ainda não tem lembretes para editar.</p>
+      <div class="lembrete-selecao__lista" id="lista-edicao-lembretes"></div>
+
+      <div class="lembrete-form__acoes">
+        <button class="lembrete-form__cancelar" id="cancelar-selecao-lembrete" type="button">Cancelar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="mentora.js"></script>
+</body>
+</html>

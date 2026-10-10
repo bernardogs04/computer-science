@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Nome da empresa — Cardápio Virtual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <header class="site-header">
+      <div class="logo-row">
+        <img class="logo-img" src="images/logo.png" alt="Nome da empresa">
+      </div>
+
+      <nav class="nav" role="tablist" aria-label="Categorias do cardápio">
+        <button class="nav-item active" role="tab" aria-selected="true" id="tab-pratos" aria-controls="page-pratos"
+          data-page="pratos">
+          <span class="icon" aria-hidden="true">🍽️</span> Pratos Principais
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-lanches" aria-controls="page-lanches"
+          data-page="lanches">
+          <span class="icon" aria-hidden="true">🍔</span> Lanches
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-sobremesas" aria-controls="page-sobremesas"
+          data-page="sobremesas">
+          <span class="icon" aria-hidden="true">🍰</span> Sobremesas
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-bebidas" aria-controls="page-bebidas"
+          data-page="bebidas">
+          <span class="icon" aria-hidden="true">🥤</span> Bebidas
+        </button>
+      </nav>
+    </header>
+
+    <div class="content-wrapper">
+      <main>
+        <section class="hero">
+          <div class="hero-logo"><img src="images/logo.png" alt="Nome da empresa"></div>
+          <div class="hero-text">
+            <h1>Trio Parada Dura</h1>
+            <p>Cortes nobres, fogo na medida e porções fartas. Uma steak house feita para quem ama carne de verdade.</p>
+          </div>
+        </section>
+
+        <div id="content">
+          <div class = "barra">
+            <input id="search" type="text" placeholder="Buscar no cardápio...">
+          </div>
+          <div id="product-list"></div>
+          <div id="product-details"></div>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-info">
+          <p>Endereço da empresa.</p>
+          <p>Telefone da empresa.</p>
+        </div>
+        <nav class="footer-social" aria-label="Redes sociais">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+        </nav>
+      </footer>
+    </div>
+  </div>
+
+  <section
+
+</body>
+
+</html>

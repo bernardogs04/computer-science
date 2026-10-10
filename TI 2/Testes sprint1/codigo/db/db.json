@@ -1,0 +1,207 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "nome": "Nome do usuário",
+      "email": "usuario@exemplo.com",
+      "senha": "senha-placeholder",
+      "cargo": "aluno"
+    },
+    {
+      "id": 2,
+      "nome": "Professor placeholder",
+      "email": "professor@exemplo.com",
+      "senha": "senha-placeholder",
+      "cargo": "professor"
+    },
+    {
+      "id": 3,
+      "nome": "Monitor placeholder",
+      "email": "monitor@exemplo.com",
+      "senha": "senha-placeholder",
+      "cargo": "monitor"
+    },
+    {
+      "id": 4,
+      "nome": "Administrador placeholder",
+      "email": "administrador@exemplo.com",
+      "senha": "senha-placeholder",
+      "cargo": "administrador"
+    }
+  ],
+  "cargos": [
+    {
+      "id": 1,
+      "nome": "aluno"
+    },
+    {
+      "id": 2,
+      "nome": "administrador"
+    },
+    {
+      "id": 3,
+      "nome": "professor"
+    },
+    {
+      "id": 4,
+      "nome": "monitor"
+    }
+  ],
+  "disciplinas": [
+    {
+      "id": 1,
+      "codigo": "CODIGO-01",
+      "nome": "Nome da disciplina"
+    }
+  ],
+  "monitorias": [
+    {
+      "id": 1,
+      "id_monitor": 3,
+      "codigo_disciplina": "CODIGO-01"
+    }
+  ],
+  "disponibilidades": [
+    {
+      "id": 1,
+      "id_monitor": 3,
+      "dia_semana": "Dia da semana",
+      "hora_inicio": "00:00",
+      "hora_termino": "00:00"
+    }
+  ],
+  "agendamentos": [
+    {
+      "id": 1,
+      "id_aluno": 1,
+      "id_monitor": 3,
+      "codigo_disciplina": "CODIGO-01",
+      "data": "AAAA-MM-DD",
+      "horario": "00:00",
+      "modalidade": "Online",
+      "status": "Pendente",
+      "descricao": "Descrição do agendamento"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "id_usuario": 1,
+      "nome": "Nome da tag",
+      "cor": "#000000"
+    }
+  ],
+  "chats": [
+    {
+      "id": 1,
+      "id_usuario_1": 1,
+      "id_usuario_2": 2,
+      "id_disciplina": 1
+    }
+  ],
+  "mensagens": [
+    {
+      "id": 1,
+      "id_chat": 1,
+      "id_remetente": 1,
+      "id_destinatario": 2,
+      "texto": "Tenho uma dúvida sobre o conteúdo da disciplina.",
+      "tag": "duvidas",
+      "resposta_de": null,
+      "data_hora": "AAAA-MM-DDTHH:MM:SSZ",
+      "status": "Enviada"
+    },
+    {
+      "id": 2,
+      "id_chat": 1,
+      "id_remetente": 2,
+      "id_destinatario": 1,
+      "texto": "Resposta da dúvida.",
+      "tag": null,
+      "resposta_de": 1,
+      "data_hora": "AAAA-MM-DDTHH:MM:SSZ",
+      "status": "Enviada"
+    }
+  ],
+  "arquivos": [
+    {
+      "id": 1,
+      "nome_arquivo": "nome-do-arquivo.ext",
+      "url": "https://drive.google.com/arquivo-placeholder",
+      "tipo_arquivo": "application/pdf",
+      "data_envio": "AAAA-MM-DDTHH:MM:SSZ",
+      "id_disciplina": 1,
+      "id_responsavel": 2,
+      "id_chat": null,
+      "id_mensagem": null,
+      "id_usuario": null
+    },
+    {
+      "id": 2,
+      "nome_arquivo": "anexo-da-mensagem.ext",
+      "url": "https://drive.google.com/anexo-placeholder",
+      "tipo_arquivo": "image/png",
+      "data_envio": "AAAA-MM-DDTHH:MM:SSZ",
+      "id_disciplina": 1,
+      "id_responsavel": 2,
+      "id_chat": 1,
+      "id_mensagem": 1,
+      "id_usuario": 1
+    }
+  ],
+  "notificacoes": [
+    {
+      "id": 1,
+      "id_usuario": 1,
+      "titulo": "Título da notificação",
+      "mensagem": "Mensagem da notificação",
+      "data_hora": "AAAA-MM-DDTHH:MM:SSZ",
+      "status": "Nao Lida",
+      "tag": "aviso"
+    }
+  ],
+  "lembretes": [
+    {
+      "id_usuario": 1,
+      "titulo": "Aulão do Claudião",
+      "descricao": "Não esquecer do aulão",
+      "data": "2026-10-10T11:50:00.000Z",
+      "tag": "aulão",
+      "id": 1
+    },
+    {
+      "id_usuario": 1,
+      "titulo": "trabalho de calculo",
+      "descricao": "",
+      "data": "2026-10-08T14:13:00.000Z",
+      "tag": "revisão",
+      "id": 2
+    }
+  ],
+  "tags_notificacao": [
+    {
+      "id": 1,
+      "nome": "prova"
+    },
+    {
+      "id": 2,
+      "nome": "entrega"
+    },
+    {
+      "id": 3,
+      "nome": "aulão"
+    },
+    {
+      "id": 4,
+      "nome": "revisão"
+    },
+    {
+      "id": 5,
+      "nome": "monitoria"
+    },
+    {
+      "id": 6,
+      "nome": "aviso"
+    }
+  ]
+}
