@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Detalhes do produto — Trio Parada Dura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="pagina-detalhes">
+  <header class="detalhes-header">
+    <a class="detalhes-header__logo" href="index.html" aria-label="Trio Parada Dura — página inicial">
+      <img src="images/logo.png" alt="Trio Parada Dura">
+    </a>
+    <a class="btn btn-detalhes-voltar" href="index.html">Voltar ao cardápio</a>
+  </header>
+
+  <main class="detalhes-main">
+    <nav class="detalhes-breadcrumb" aria-label="Navegação estrutural">
+      <a href="index.html">Cardápio</a>
+      <span aria-hidden="true">/</span>
+      <span id="detalhe-breadcrumb-nome">Detalhes do produto</span>
+    </nav>
+
+    <div id="detalhes-produto" aria-live="polite"></div>
+  </main>
+
+  <footer class="detalhes-footer">
+    <section class="autoria" aria-labelledby="autoria-titulo">
+      <h2 id="autoria-titulo">Sobre a autoria</h2>
+      <div id="autoria-conteudo"></div>
+    </section>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

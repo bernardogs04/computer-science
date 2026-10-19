@@ -1,0 +1,470 @@
+/* =========================================================
+   Meu Caderno - Sabores Pessoais
+   Tema customizado sobre o Bootstrap 5
+   Fontes: Playfair Display (títulos) + Poppins (texto)
+   ========================================================= */
+
+:root {
+    --cor-primaria: #e2583e;
+    --cor-primaria-escura: #c2432b;
+    --cor-primaria-suave: #fdeee9;
+    --cor-fundo: #f7f3ee;
+    --cor-superficie: #ffffff;
+    --cor-texto: #2d2a26;
+    --cor-texto-suave: #7a7168;
+    --cor-borda: #ece5dc;
+
+    --raio: 0.75rem;
+    --raio-sm: 0.5rem;
+    --sombra: 0 2px 8px rgba(45, 42, 38, 0.06);
+    --sombra-hover: 0 12px 28px rgba(45, 42, 38, 0.14);
+    --transicao: 0.25s ease;
+
+    --fonte-titulo: 'Playfair Display', Georgia, serif;
+    --fonte-texto: 'Poppins', system-ui, sans-serif;
+
+    /* Sobrescrevendo variáveis do Bootstrap */
+    --bs-body-font-family: var(--fonte-texto);
+    --bs-body-color: var(--cor-texto);
+    --bs-body-bg: var(--cor-fundo);
+    --bs-link-color-rgb: 226, 88, 62;
+    --bs-link-hover-color-rgb: 194, 67, 43;
+}
+
+body {
+    font-family: var(--fonte-texto);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > .container-fluid {
+    flex: 1;
+}
+
+h1, h2, h3, h4, h5, .marca {
+    font-family: var(--fonte-titulo);
+}
+
+a {
+    text-decoration: none;
+    transition: color var(--transicao);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* ---------- Botões ---------- */
+.btn-tema {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--cor-primaria);
+    --bs-btn-border-color: var(--cor-primaria);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--cor-primaria-escura);
+    --bs-btn-hover-border-color: var(--cor-primaria-escura);
+    --bs-btn-active-bg: var(--cor-primaria-escura);
+    --bs-btn-active-border-color: var(--cor-primaria-escura);
+    --bs-btn-active-color: #fff;
+    font-weight: 500;
+}
+
+.btn-outline-tema {
+    --bs-btn-color: var(--cor-primaria);
+    --bs-btn-border-color: var(--cor-primaria);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--cor-primaria);
+    --bs-btn-hover-border-color: var(--cor-primaria);
+    --bs-btn-active-bg: var(--cor-primaria-escura);
+    --bs-btn-active-color: #fff;
+    font-weight: 500;
+    border-radius: 2rem;
+    padding-inline: 0.9rem;
+}
+
+.btn-icone {
+    border: 0;
+    font-size: 1.25rem;
+    color: var(--cor-texto);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--raio-sm);
+    transition: background-color var(--transicao), color var(--transicao);
+}
+
+.btn-icone:hover {
+    background: var(--cor-primaria-suave);
+    color: var(--cor-primaria);
+}
+
+/* ---------- Navbar ---------- */
+.navbar-tema {
+    background: var(--cor-superficie);
+    border-bottom: 1px solid var(--cor-borda);
+    padding-block: 0.6rem;
+}
+
+.marca {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+}
+
+.marca i {
+    color: var(--cor-primaria);
+    font-size: 1.05rem;
+}
+
+.marca:hover {
+    color: var(--cor-primaria);
+}
+
+.busca {
+    max-width: 380px;
+    width: 100%;
+}
+
+.busca .input-group-text {
+    background: var(--cor-fundo);
+    border-color: var(--cor-borda);
+    color: var(--cor-texto-suave);
+    border-radius: 2rem 0 0 2rem;
+    padding-left: 0.9rem;
+}
+
+.busca .form-control {
+    background: var(--cor-fundo);
+    border-color: var(--cor-borda);
+    border-left: 0;
+}
+
+.busca .form-control:focus {
+    box-shadow: none;
+    border-color: var(--cor-primaria);
+    background: #fff;
+}
+
+.busca .input-group:focus-within .input-group-text {
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+.busca .btn {
+    border-radius: 0 2rem 2rem 0;
+    padding-inline: 0.9rem;
+}
+
+/* ---------- Menu lateral ---------- */
+.menu-lateral {
+    background: transparent;
+}
+
+@media (min-width: 768px) {
+    .menu-lateral {
+        position: sticky;
+        top: 64px;
+    }
+
+    .menu-lateral .offcanvas-body {
+        background: var(--cor-superficie);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio);
+        box-shadow: var(--sombra);
+        margin: 1rem 0 1rem 1rem;
+    }
+}
+
+.menu-links .nav-link {
+    color: var(--cor-texto);
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--raio-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 2px;
+    transition: background-color var(--transicao), color var(--transicao), transform var(--transicao);
+}
+
+.menu-links .nav-link i {
+    width: 1.1rem;
+    text-align: center;
+    color: var(--cor-texto-suave);
+    transition: color var(--transicao);
+}
+
+.menu-links .nav-link:hover {
+    background: var(--cor-primaria-suave);
+    color: var(--cor-primaria);
+    transform: translateX(3px);
+}
+
+.menu-links .nav-link:hover i,
+.menu-links .nav-link.active i {
+    color: var(--cor-primaria);
+}
+
+.menu-links .nav-link.active {
+    background: var(--cor-primaria-suave);
+    color: var(--cor-primaria);
+    font-weight: 600;
+}
+
+.menu-links .destaque-add {
+    background: var(--cor-primaria);
+    color: #fff;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+}
+
+.menu-links .destaque-add i {
+    color: #fff;
+}
+
+.menu-links .destaque-add:hover {
+    background: var(--cor-primaria-escura);
+    color: #fff;
+}
+
+.menu-links .destaque-add:hover i {
+    color: #fff;
+}
+
+/* ---------- Títulos de seção ---------- */
+.titulo-secao {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.titulo-secao h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.titulo-secao h2 i {
+    color: var(--cor-primaria);
+    font-size: 1rem;
+}
+
+.titulo-secao .linha {
+    flex: 1;
+    height: 1px;
+    background: var(--cor-borda);
+}
+
+/* ---------- Carrossel ---------- */
+.carrossel-destaques {
+    border-radius: var(--raio);
+    overflow: hidden;
+}
+
+.carrossel-destaques .carousel-item img {
+    height: 340px;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 6s ease;
+}
+
+.carrossel-destaques .carousel-item.active img {
+    transform: scale(1.04);
+}
+
+.carrossel-destaques .carousel-caption {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: left;
+    padding: 3rem 2rem 2.25rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+}
+
+.carrossel-destaques .carousel-caption h5 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.carrossel-destaques .carousel-caption p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.carrossel-destaques .carousel-caption .badge {
+    margin-bottom: 0.5rem;
+}
+
+.carrossel-destaques .carousel-indicators [data-bs-target] {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 0;
+    margin-inline: 4px;
+}
+
+.carrossel-destaques .carousel-indicators .active {
+    background-color: var(--cor-primaria);
+    width: 22px;
+    border-radius: 4px;
+}
+
+.carrossel-destaques .carousel-control-prev,
+.carrossel-destaques .carousel-control-next {
+    width: 8%;
+    opacity: 0;
+    transition: opacity var(--transicao);
+}
+
+.carrossel-destaques:hover .carousel-control-prev,
+.carrossel-destaques:hover .carousel-control-next {
+    opacity: 0.9;
+}
+
+/* ---------- Cards (receitas / restaurantes) ---------- */
+.card-item {
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    overflow: hidden;
+    background: var(--cor-superficie);
+    box-shadow: var(--sombra);
+    transition: transform var(--transicao), box-shadow var(--transicao), border-color var(--transicao);
+}
+
+.card-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+    border-color: transparent;
+}
+
+.card-item .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+}
+
+.card-item .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.45s ease;
+}
+
+.card-item:hover .card-img-wrap img {
+    transform: scale(1.08);
+}
+
+.card-item .badge-tipo {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--cor-texto);
+    font-weight: 500;
+    font-size: 0.7rem;
+    border-radius: 2rem;
+    padding: 0.3rem 0.6rem;
+    backdrop-filter: blur(4px);
+}
+
+.card-item .card-body {
+    padding: 0.7rem 0.8rem 0.8rem;
+}
+
+.card-item .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    line-height: 1.25;
+    transition: color var(--transicao);
+}
+
+.card-item:hover .card-title {
+    color: var(--cor-primaria);
+}
+
+.card-item .card-text {
+    font-size: 0.8rem;
+    color: var(--cor-texto-suave);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-item .card-text i {
+    color: var(--cor-primaria);
+    margin-right: 0.25rem;
+}
+
+/* ---------- Footer ---------- */
+.footer {
+    background: var(--cor-texto);
+    color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    font-size: 0.82rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 767.98px) {
+    .marca {
+        font-size: 1.15rem;
+    }
+
+    .busca {
+        max-width: none;
+        order: 3;
+        margin-top: 0.5rem;
+    }
+
+    .navbar-tema .container-fluid {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .menu-lateral .offcanvas-header {
+        border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .menu-lateral {
+        background: var(--cor-superficie);
+        max-width: 280px;
+    }
+
+    .carrossel-destaques .carousel-item img {
+        height: 200px;
+    }
+
+    .carrossel-destaques .carousel-caption {
+        padding: 2rem 1rem 1.75rem;
+    }
+
+    .carrossel-destaques .carousel-caption h5 {
+        font-size: 1.15rem;
+    }
+
+    .carrossel-destaques .carousel-caption p {
+        display: none;
+    }
+
+    .titulo-secao h2 {
+        font-size: 1.15rem;
+    }
+}

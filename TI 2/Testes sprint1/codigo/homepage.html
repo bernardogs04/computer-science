@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Monitoria | Início</title>
+  <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+  <div class="layout">
+
+    <!-- CABEÇALHO -->
+    <header class="topo">
+      <a href="#" class="perfil" aria-label="Meu perfil">
+        <img id="perfil-foto" src="" alt="" hidden>
+        <span id="perfil-inicial">U</span>
+      </a>
+      <h1 class="saudacao" id="saudacao">Olá!</h1>
+      <button class="notif" id="btn-notif" aria-label="Notificações">
+        <i class="fa-solid fa-bell" aria-hidden="true"></i>
+      </button>
+    </header>
+
+    <!-- CONTEÚDO -->
+    <main class="conteudo">
+
+      <!-- Disciplinas do aluno -->
+      <section class="disciplinas" aria-label="Minhas disciplinas">
+        <div class="disciplinas__lista" id="lista-disciplinas"></div>
+      </section>
+
+      <div class="grade">
+        <!-- Próximas tarefas -->
+        <section class="tarefas" aria-labelledby="titulo-tarefas">
+          <h2 id="titulo-tarefas" class="tarefas__titulo">Próximas tarefas</h2>
+          <ul class="tarefas__lista" id="lista-tarefas"></ul>
+        </section>
+
+        <!-- Ações rápidas -->
+        <aside class="acoes" aria-label="Ações rápidas">
+          <button class="acao" data-acao="novo-agendamento">Novo agendamento</button>
+          <button class="acao" data-acao="novo-lembrete">Novo lembrete</button>
+          <button class="acao" data-acao="add-evento">Adicionar evento</button>
+          <button class="acao" data-acao="disciplinas-disponiveis">Disciplinas disponíveis</button>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <script src="homepage.js"></script>
+</body>
+</html>

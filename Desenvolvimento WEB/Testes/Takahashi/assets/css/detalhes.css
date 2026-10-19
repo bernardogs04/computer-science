@@ -1,0 +1,151 @@
+/* =========================================================
+   Página de detalhes
+   ========================================================= */
+
+/* Breadcrumb */
+.migalhas {
+    font-size: 0.85rem;
+    --bs-breadcrumb-divider-color: var(--cor-texto-suave);
+}
+
+.migalhas a {
+    color: var(--cor-texto-suave);
+}
+
+.migalhas a:hover {
+    color: var(--cor-primaria);
+}
+
+.migalhas .active {
+    color: var(--cor-texto);
+    font-weight: 500;
+}
+
+/* Card principal */
+.card-detalhe {
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+}
+
+.img-detalhes {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.img-detalhes-wrap {
+    overflow: hidden;
+}
+
+.card-detalhe:hover .img-detalhes {
+    transform: scale(1.03);
+}
+
+.info-detalhes {
+    padding: 1.25rem 1.5rem;
+}
+
+.info-detalhes h1 {
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.info-detalhes .conteudo {
+    color: var(--cor-texto-suave);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+}
+
+.badge-tema {
+    background: var(--cor-primaria-suave);
+    color: var(--cor-primaria);
+    font-weight: 500;
+    border-radius: 2rem;
+    padding: 0.35rem 0.75rem;
+}
+
+.badge-destaque {
+    background: #fff4d6;
+    color: #a16b00;
+    font-weight: 500;
+    border-radius: 2rem;
+    padding: 0.35rem 0.75rem;
+}
+
+/* Blocos de informação (tempo, rendimento...) */
+.info-bloco {
+    background: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-sm);
+    padding: 0.6rem 0.75rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: border-color var(--transicao), background-color var(--transicao), transform var(--transicao);
+}
+
+.info-bloco:hover {
+    border-color: var(--cor-primaria);
+    background: var(--cor-primaria-suave);
+    transform: translateY(-2px);
+}
+
+.info-bloco i {
+    color: var(--cor-primaria);
+    font-size: 1.1rem;
+    width: 1.4rem;
+    text-align: center;
+}
+
+.info-bloco small {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--cor-texto-suave);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+}
+
+.info-bloco strong {
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+/* Cards secundários */
+.card-item .card-numero {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--cor-primaria);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 767.98px) {
+    .img-detalhes {
+        min-height: 200px;
+        max-height: 240px;
+    }
+
+    .info-detalhes {
+        padding: 1rem;
+    }
+
+    .info-detalhes h1 {
+        font-size: 1.45rem;
+    }
+}

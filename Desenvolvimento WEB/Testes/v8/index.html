@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Trio Parada Dura — Cardápio Virtual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="navbar">
+    <header class="site-header">
+      <div class="logo-row">
+        <img class="logo-img" src="images/logo.png" alt="Nome da empresa">
+      </div>
+
+      <nav class="nav" role="tablist" aria-label="Categorias do cardápio">
+        <button class="nav-item active" role="tab" aria-selected="true" id="tab-pratos" aria-controls="product-list"
+          data-page="pratos">
+          <span class="icon" aria-hidden="true">🍽️</span> Pratos Principais
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-lanches" aria-controls="product-list"
+          data-page="lanches">
+          <span class="icon" aria-hidden="true">🍔</span> Lanches
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-sobremesas" aria-controls="product-list"
+          data-page="sobremesas">
+          <span class="icon" aria-hidden="true">🍰</span> Sobremesas
+        </button>
+        <button class="nav-item" role="tab" aria-selected="false" id="tab-bebidas" aria-controls="product-list"
+          data-page="bebidas">
+          <span class="icon" aria-hidden="true">🥤</span> Bebidas
+        </button>
+      </nav>
+    </header>
+
+    <div class="content-wrapper">
+      <main>
+        <section class="hero">
+          <div class="hero-logo"><img src="images/logo.png" alt="Nome da empresa"></div>
+          <div class="hero-text">
+            <p>Cortes nobres, fogo na medida e porções fartas. Uma steak house feita para quem ama carne de verdade.</p>
+          </div>
+        </section>
+
+        <div id="content">
+          <div class="barra">
+            <input id="search" type="text" placeholder="Buscar no cardápio..." aria-label="Buscar no cardápio">
+          </div>
+
+          <div id="product-list" role="tabpanel"></div>
+
+          <aside class="resumo" id="resumo" aria-live="polite">
+            <div class="resumo__info">
+              <span id="total-itens">0 itens</span>
+              <strong id="venda-total">R$ 0,00</strong>
+            </div>
+            <div class="resumo__acoes">
+              <button type="button" id="btn-limpar">Limpar</button>
+              <button type="button" id="btn-exportar" class="primario">Finalizar pedido</button>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <!-- Carrossel de avaliações (preenchido pelo script.js a partir de data.comentarios) -->
+        <section class="avaliacoes" id="avaliacoes" aria-roledescription="carrossel"
+          aria-label="Avaliações de clientes">
+          <div class="avaliacoes__topo">
+            <h2 class="avaliacoes__titulo">O que dizem nossos clientes</h2>
+          </div>
+          <div class="avaliacoes__janela">
+            <div class="avaliacoes__trilho" id="avaliacoes-trilho"></div>
+          </div>
+        </section>
+
+        <div class="footer-info">
+          <p>Endereço da empresa.</p>
+          <p>Telefone da empresa.</p>
+        </div>
+        <nav class="footer-social" aria-label="Redes sociais">
+          <a href="#">Instagram</a>
+          <a href="#">Facebook</a>
+          <a href="#">WhatsApp</a>
+        </nav>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Pop-up de personalização do produto (preenchido pelo script.js) -->
+  <div class="modal" id="modal-produto" hidden>
+    <div class="modal__fundo" id="modal-fundo"></div>
+    <div class="modal__caixa" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+      <header class="modal__topo">
+        <div>
+          <h2 id="modal-titulo"></h2>
+          <p class="modal__preco" id="modal-preco"></p>
+        </div>
+        <button type="button" class="modal__fechar" id="modal-fechar" aria-label="Fechar">✕</button>
+      </header>
+
+      <div class="modal__corpo">
+        <p class="modal__descricao" id="modal-descricao"></p>
+
+        <section class="modal__secao" id="modal-secao-opcoes-produto" hidden>
+          <h3 id="modal-titulo-opcoes-produto">Opções</h3>
+          <div class="opcoes" id="modal-opcoes-produto" role="radiogroup"
+            aria-labelledby="modal-titulo-opcoes-produto"></div>
+        </section>
+
+        <section class="modal__secao" id="modal-secao-removiveis">
+          <h3>Retirar ingredientes</h3>
+          <p class="modal__dica">Marque o que você não quer.</p>
+          <div class="opcoes" id="modal-removiveis"></div>
+        </section>
+
+        <section class="modal__secao" id="modal-secao-extras">
+          <h3>Adicionar extras</h3>
+          <div class="opcoes" id="modal-extras"></div>
+        </section>
+      </div>
+
+      <footer class="modal__rodape">
+        <div class="contador" role="group" aria-label="Quantidade">
+          <button type="button" id="modal-menos" aria-label="Diminuir quantidade">−</button>
+          <span class="contador__qtd" id="modal-qtd" aria-live="polite">1</span>
+          <button type="button" id="modal-mais" aria-label="Aumentar quantidade">+</button>
+        </div>
+        <button type="button" class="modal__confirmar" id="modal-confirmar">Adicionar</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

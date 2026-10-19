@@ -1,0 +1,329 @@
+/* ===== Variáveis (ajuste aqui para mudar o tema) ===== */
+:root {
+  --fundo: linear-gradient(180deg,rgba(2, 0, 36, 1) 0%, rgba(34, 20, 53, 1) 20%, rgba(53, 0, 122, 1) 100%);
+  --painel: #404043;
+  --painel-claro: #6b6b6d;
+  --superficie: #b8b8b8;
+  --item: #3a3a3c;
+  --texto: #ffffff;
+  --texto-escuro: #1a1a1c;
+  --destaque: #7dd3c0;
+  --raio: 10px;
+  --espaco: 1rem;
+  --fonte: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--fonte);
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+/* ===== Layout geral ===== */
+.layout {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: "nav topo" "nav conteudo";
+  gap: var(--espaco);
+  min-height: 100vh;
+  padding: var(--espaco);
+}
+
+/* ===== Cabeçalho ===== */
+.topo {
+  grid-area: topo;
+  display: flex;
+  align-items: center;
+  gap: var(--espaco);
+}
+
+.perfil {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--painel);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.perfil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.saudacao {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.notif {
+  margin-left: auto;
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid var(--texto);
+  background: transparent;
+  font-size: 1.3rem;
+  overflow: hidden;
+  place-items: center;
+  display: grid;
+  color: #ffffff;
+}
+
+/* ===== Conteúdo ===== */
+.conteudo {
+  grid-area: conteudo;
+  background: var(--painel);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+  min-height: 0;
+}
+
+/* Disciplinas */
+.disciplinas {
+  border: 2px solid rgba(255, 255, 255, .5);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+}
+
+.disciplinas__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--espaco);
+}
+
+.disciplina {
+  background: var(--superficie);
+  color: var(--texto-escuro);
+  border-radius: var(--raio);
+  min-height: 150px;
+  padding: var(--espaco);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-left: 8px solid var(--cor, var(--destaque));
+  transition: transform .15s;
+}
+
+.disciplina:hover {
+  transform: translateY(-3px);
+}
+
+.disciplina__nome {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.disciplina__info {
+  font-size: .85rem;
+  opacity: .75;
+}
+
+/* Estados de carregamento / vazio / erro */
+.estado-vazio {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 1rem;
+  color: var(--texto);
+  opacity: .85;
+}
+
+/* Grade principal: tarefas + ações */
+.grade {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--espaco);
+  flex: 1;
+  min-height: 0;
+}
+
+/* Tarefas */
+.tarefas {
+  background: var(--superficie);
+  color: var(--texto-escuro);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.tarefas__titulo {
+  margin: 0 0 var(--espaco);
+  text-align: center;
+  font-size: 1rem;
+  padding: .6rem;
+  border: 2px solid var(--painel);
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.tarefas__lista {
+  list-style: none;
+  margin: 0;
+  padding: var(--espaco);
+  background: var(--painel-claro);
+  border-radius: var(--raio);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .75rem 1.5rem;
+  align-content: start;
+  overflow-y: auto;
+  max-height: 600px;
+  flex: 1;
+}
+
+.tarefa {
+  display: flex;
+  background: var(--item);
+  border-radius: 8px;
+  overflow: hidden;
+  color: var(--texto);
+}
+
+.tarefa__icone {
+  width: 65px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, .25);
+  font-size: 1.2rem;
+}
+
+.tarefa__corpo {
+  padding: .6rem .8rem;
+  min-width: 0;
+}
+
+.tarefa__descricao {
+  margin: 0;
+  font-size: .95rem;
+}
+
+.tarefa__data {
+  font-size: .8rem;
+  opacity: .7;
+}
+
+.tarefa.is-concluida .tarefa__descricao {
+  text-decoration: line-through;
+  opacity: .6;
+}
+
+.tarefas__vazio {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #eee;
+  padding: 2rem 0;
+}
+
+/* Ações rápidas */
+.acoes {
+  background: var(--superficie);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco);
+}
+
+.acao {
+  flex: 1;
+  min-height: 80px;
+  border: 0;
+  border-radius: var(--raio);
+  background: var(--item);
+  color: var(--texto);
+  font-size: 1.05rem;
+  transition: background .15s, transform .15s;
+}
+
+.acao:hover {
+  background: #4d4d51;
+  transform: translateY(-2px);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 1000px) {
+  .grade {
+    grid-template-columns: 1fr;
+  }
+
+  .acoes {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .acao {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 640px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-areas: "topo" "conteudo" "nav";
+    padding: .5rem;
+  }
+
+  .navbar {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: .5rem;
+    gap: 0;
+  }
+
+  .navbar__lista {
+    flex-direction: row;
+    margin: 0;
+    gap: 2rem;
+  }
+
+  .tarefas__lista {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
