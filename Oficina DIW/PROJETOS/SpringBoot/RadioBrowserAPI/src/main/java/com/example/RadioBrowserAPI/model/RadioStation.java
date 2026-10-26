@@ -37,6 +37,7 @@ public class RadioStation {
     private Double geoLat;
     private Double geoLong;
     private boolean hasExtendedInfo;
+    private boolean favorite;
 
     // Método construtor padrão
 
@@ -373,5 +374,12 @@ public class RadioStation {
     public void setHasExtendedInfo(boolean hasExtendedInfo) {
         this.hasExtendedInfo = hasExtendedInfo;
     }
-}
 
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+}

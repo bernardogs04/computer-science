@@ -817,6 +817,7 @@ function iniciarCarrosselDestaques() {
   }
 
   let indice = 0;
+  let timer = null;
 
   function renderizarDestaque() {
     const produto = destaques[indice];
@@ -844,8 +845,30 @@ function iniciarCarrosselDestaques() {
     cartao.append(linkImagem, informacoes);
     listaDestaques.replaceChildren(cartao);
 
-      const posicao = document.getElementById("destaques-posicao");
-      if (posicao) posicao.textContent = `${indice + 1} / ${destaques.length}`;
+    const posicao = document.getElementById("destaques-posicao");
+    if (posicao) posicao.textContent = `${indice + 1} / ${destaques.length}`;
+  }
+
+  function parar() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function atualizarTimer() {
+    parar();
+    if (destaques.length > 1 && !document.hidden) {
+      timer = setInterval(avancar, CARROSSEL_INTERVALO);
+    }
+  }
+
+  function avancar() {
+    indice = (indice + 1) % destaques.length;
+    renderizarDestaque();
+  }
+
+  function voltar() {
+    indice = (indice - 1 + destaques.length) % destaques.length;
+    renderizarDestaque();
   }
 
   botaoAnterior.hidden = destaques.length < 2;
@@ -853,16 +876,19 @@ function iniciarCarrosselDestaques() {
   if (controles) controles.hidden = destaques.length < 2;
 
   botaoAnterior.addEventListener("click", () => {
-    indice = (indice - 1 + destaques.length) % destaques.length;
-    renderizarDestaque();
+    voltar();
+    atualizarTimer();
   });
 
   botaoProximo.addEventListener("click", () => {
-    indice = (indice + 1) % destaques.length;
-    renderizarDestaque();
+    avancar();
+    atualizarTimer();
   });
 
+  document.addEventListener("visibilitychange", atualizarTimer);
+
   renderizarDestaque();
+  atualizarTimer();
 }
 
 function renderizarAutoria() {
@@ -1046,7 +1072,7 @@ function iniciarPaginaInicial() {
    ===================================================================== */
 
 const CARROSSEL_POR_VEZ = 3;        // máximo de comentários visíveis
-const CARROSSEL_INTERVALO = 7000;   // ms entre cada deslize
+const CARROSSEL_INTERVALO = 5000;   // ms entre cada deslize
 const CARROSSEL_DURACAO = 500;      // ms da animação do deslize
 
 function criarEstrelas(quantidade) {

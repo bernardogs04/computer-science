@@ -6,10 +6,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ApiConfig {
 
-    @Value("${radio.search.api.base.url}")
-    private String searchUrl;
+    @Value("${radio.api.base.url}")
+    private String baseUrl;
 
     public String getSearchUrl() {
-        return searchUrl;
+        return baseUrl + "/stations/search";
+    }
+
+    public String getCountriesUrl() {
+        return baseUrl + "/countries";
+    }
+
+    public String getStatesUrl() {
+        return baseUrl + "/states";
     }
 }

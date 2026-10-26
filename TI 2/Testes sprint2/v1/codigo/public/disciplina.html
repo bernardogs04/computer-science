@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplina-Home</title>
+    <link rel="stylesheet" href="assets/css/disciplina.css">
+    <link rel="stylesheet" href="assets/css/perfil.css">
+    <script src="https://kit.fontawesome.com/7493f3a611.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <aside class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#" class="sidebar-item" title="Item 1">
+                <i class="fa-solid fa-circle"></i>
+            </a>
+            <a href="#" class="sidebar-item" title="Item 2">
+                <i class="fa-solid fa-circle"></i>
+            </a>
+            <a href="#" class="sidebar-item" title="Item 3">
+                <i class="fa-solid fa-circle"></i>
+            </a>
+        </nav>
+    </aside >
+
+    <main class="caixa-principal" id="caixa-principal">
+
+        <header class="caixa-header" id="caixa-header">
+            <nav>
+                <ul>
+                    <li><a href="#" data-perfil-usuario="proprio" aria-haspopup="dialog">Perfil</a></li>
+                    <li>
+                        <h1>Disciplina - Home</h1>
+                    </li>
+                    <li><button type="button" id="btn-notificacoes"><i class="fa-solid fa-bell"></i></button></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="conteudo-grid">
+            <section class="caixa-eventos" id="caixa-eventos">
+                <div class="caixa-eventos-header">
+                    <h2>Próximos Eventos</h2>
+                    <button type="button" id="btn-adicionar-evento" class="btn-primario">
+                        <i class="fa-solid fa-plus"></i> Novo Evento
+                    </button>
+                </div>
+                <div class="eventos-container" id="eventos-container">
+                    <!-- Eventos serão carregados aqui com JS -->
+                </div>
+            </section>
+
+            <aside class="side-eventos" id="side-eventos">
+
+                <section class="info-monitor">
+                    <h3>Nome do Monitor 1</h3>
+                    <p class="prox-horario">Próx. horário disponível</p>
+                    <div class="acoes-monitor">
+                        <button type="button" class="btn-horarios">Ver Horários</button>
+                        <a href="#" class="btn-mensagem">Mensagem</a>
+                        <a href="#" class="btn-perfil" data-perfil-usuario="3" aria-haspopup="dialog">Perfil</a>
+                    </div>
+                </section>
+
+                <section class="info-monitor">
+                    <h3>Nome do Monitor 2</h3>
+                    <p class="prox-horario">Próx. horário disponível</p>
+                    <div class="acoes-monitor">
+                        <button type="button" class="btn-horarios">Ver Horários</button>
+                        <a href="#" class="btn-mensagem">Mensagem</a>
+                        <a href="#" class="btn-perfil" data-perfil-usuario="" aria-haspopup="dialog">Perfil</a>
+                    </div>
+                </section>
+
+                <section class="info-adicional" id="info-adicional">
+
+                    <div class="avaliacoes-arquivos" id="avaliacoes-arquivos">
+                        <ul>
+                            <li>
+                                <i class="fa-solid fa-check icone"></i>
+                                <a href="#">Avaliações</a>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope icone"></i>
+                                <a href="#">Arquivos</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="links-container" id="links-container">
+
+                        <i class="fa-solid fa-link icone-link"></i>
+                        <div class="links-grupo">
+                            <div class="botoes-links">
+                                <a href="#" class="btn-link">> Drive Externo</a>
+                                <a href="#" class="btn-link">> Plano de Ensino</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </aside>
+        </div>
+    </main>
+    <script src="assets/js/perfil.js"></script>
+    <script src="assets/js/disciplina.js"></script>
+
+    <!-- PopUp para adicionar novo evento -->
+
+    <div id="PopUp" class="PopUp-overlay" style="display: none;">
+        <div class="PopUp-conteudo">
+            <div class="PopUp-header">
+                <h3>Novo Evento</h3>
+                <button type="button" id="btn-fechar-PopUp" class="btn-fechar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="form-novo-evento">
+                <div class="form-grupo">
+                    <label for="input-titulo">Título:</label>
+                    <input type="text" id="input-titulo" required placeholder="Ex: Aulão de Cálculo">
+                </div>
+                <div class="form-grupo">
+                    <label for="input-mensagem">Mensagem / Descrição:</label>
+                    <textarea id="input-mensagem" rows="3" required placeholder="Descrição do evento..."></textarea>
+                </div>
+                <div class="form-grupo">
+                    <label for="input-data">Data e Hora:</label>
+                    <input type="datetime-local" id="input-data" required>
+                </div>
+                <div class="PopUp-acoes">
+                    <button type="button" id="btn-cancelar" class="btn-secundario">Cancelar</button>
+                    <button type="submit" class="btn-primario">Salvar Evento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,142 +1,205 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title>Wakatime Stats - All Time</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>WakaTime API · PUC Minas</title>
+	<link rel="icon" type="image/png" th:href="@{/images/pucminas-logo.png}">
+
+	<!-- Fonte Montserrat - Google Fonts -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<div class="container">
-	<h1>Wakatime Stats - All Time</h1>
-	<div class="card">
-		<!-- Exibindo dados do Wakatime -->
-		<h2>Data:</h2>
-		<p th:text="'Created At: ' + ${data.created_at}"></p>
-		<p th:text="'Daily Average: ' + ${data.daily_average}"></p>
-		<p th:text="'Daily Average Including Other Language: ' + ${data.daily_average_including_other_language}"></p>
-		<p th:text="'Days Including Holidays: ' + ${data.days_including_holidays}"></p>
-		<p th:text="'Days Minus Holidays: ' + ${data.days_minus_holidays}"></p>
-		<p th:text="'Human Readable Daily Average: ' + ${data.human_readable_daily_average}"></p>
-		<p th:text="'Human Readable Daily Average Including Other Language: ' + ${data.human_readable_daily_average_including_other_language}"></p>
-		<p th:text="'Human Readable Range: ' + ${data.human_readable_range}"></p>
-		<p th:text="'Human Readable Total: ' + ${data.human_readable_total}"></p>
-		<p th:text="'Human Readable Total Including Other Language: ' + ${data.human_readable_total_including_other_language}"></p>
-		<p th:text="'ID: ' + ${data.id}"></p>
-		<p th:text="'Is Already Updating: ' + ${data.is_already_updating}"></p>
-		<p th:text="'Is Cached: ' + ${data.is_cached}"></p>
-		<p th:text="'Is Coding Activity Visible: ' + ${data.is_coding_activity_visible}"></p>
-		<p th:text="'Is Including Today: ' + ${data.is_including_today}"></p>
-		<p th:text="'Is Other Usage Visible: ' + ${data.is_other_usage_visible}"></p>
-		<p th:text="'Is Stuck: ' + ${data.is_stuck}"></p>
-		<p th:text="'Is Up To Date: ' + ${data.is_up_to_date}"></p>
-		<p th:text="'Is Up To Date Pending Future: ' + ${data.is_up_to_date_pending_future}"></p>
-		<p th:text="'Modified At: ' + ${data.modified_at}"></p>
-		<p th:text="'Range: ' + ${data.range}"></p>
-		<p th:text="'Start: ' + ${data.start}"></p>
-		<p th:text="'End: ' + ${data.end}"></p>
-		<p th:text="'Status: ' + ${data.status}"></p>
-		<p th:text="'Timeout: ' + ${data.timeout}"></p>
-		<p th:text="'Timezone: ' + ${data.timezone}"></p>
-		<p th:text="'Total Seconds: ' + ${data.total_seconds}"></p>
-		<p th:text="'Total Seconds Including Other Language: ' + ${data.total_seconds_including_other_language}"></p>
-		<p th:text="'User ID: ' + ${data.user_id}"></p>
-		<p th:text="'Username: ' + ${data.username}"></p>
-		<p th:text="'Writes Only: ' + ${data.writes_only}"></p>
-		<p th:text="'Holidays: ' + ${data.holidays}"></p>
-		<p th:text="'Percent Calculated: ' + ${data.percent_calculated}"></p>
+<div class="page-container">
 
-		<!-- Exibindo a melhor data (best_day) -->
-		<h2>Best Day:</h2>
-		<p th:text="'Date: ' + ${data.best_day.date}"></p>
-		<p th:text="'Time Spent: ' + ${data.best_day.text}"></p>
-		<p th:text="'Total Seconds: ' + ${data.best_day.total_seconds}"></p>
+	<!-- =====================================================
+	     FAIXA AZUL: LOGO PUC MINAS + LOGO DA API
+	     ===================================================== -->
+	<header class="page-hero">
+		<img th:src="@{/images/pucminas-logo.png}" alt="Logo PUC Minas" class="page-hero-puc">
 
-		<!-- Exibindo as categorias -->
-		<h2>Categories:</h2>
-		<ul>
-			<li th:each="category : ${data.categories}">
-				<span th:text="'Category Name: ' + ${category.name}"></span>
-				<span th:text="'Time Spent: ' + ${category.text}"></span>
-				<span th:text="'Time in Decimal: ' + ${category.decimal}"></span>
-				<span th:text="'Time in Digital: ' + ${category.digital}"></span>
-				<span th:text="'Hours: ' + ${category.hours}"></span>
-				<span th:text="'Minutes: ' + ${category.minutes}"></span>
-				<span th:text="'Percent: ' + ${category.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${category.total_seconds}"></span>
-			</li>
-		</ul>
+		<span class="page-hero-divider" aria-hidden="true"></span>
 
-		<!-- Exibindo as informações de Languages -->
-		<h2>Languages:</h2>
-		<ul>
-			<li th:each="language : ${data.languages}">
-				<span th:text="'Name: ' + ${language.name}"></span>
-				<span th:text="'Time in Decimal: ' + ${language.decimal}"></span>
-				<span th:text="'Time in Digital: ' + ${language.digital}"></span>
-				<span th:text="'Hours: ' + ${language.hours}"></span>
-				<span th:text="'Minutes: ' + ${language.minutes}"></span>
-				<span th:text="'Percent: ' + ${language.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${language.total_seconds}"></span>
-			</li>
-		</ul>
+		<div class="page-hero-brand">
+			<!-- Ícone do WakaTime (Simple Icons), em branco -->
+			<img src="https://cdn.simpleicons.org/wakatime/ffffff" alt="" class="page-hero-icon" aria-hidden="true">
+			<span>WakaTime API</span>
+		</div>
+	</header>
 
-		<!-- Exibindo as informações de Machines -->
-		<h2>Machines:</h2>
-		<ul>
-			<li th:each="machine : ${data.machines}">
-				<span th:text="'Name: ' + ${machine.name}"></span>
-				<span th:text="'Time in Decimal: ' + ${machine.decimal}"></span>
-				<span th:text="'Time in Digital: ' + ${machine.digital}"></span>
-				<span th:text="'Hours: ' + ${machine.hours}"></span>
-				<span th:text="'Minutes: ' + ${machine.minutes}"></span>
-				<span th:text="'Percent: ' + ${machine.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${machine.total_seconds}"></span>
-			</li>
-		</ul>
+	<!-- =====================================================
+	     TÍTULO
+	     ===================================================== -->
+	<section class="page-intro">
+		<span class="page-label">PUC MINAS</span>
+		<h1>Meu tempo programando</h1>
+		<p class="page-description">
+			Estatísticas lidas da API do WakaTime: quanto tempo passei programando, em quais linguagens, editores e projetos.
+		</p>
+		<div class="page-divider"></div>
+	</section>
 
-		<!-- Exibindo as informações de Projects -->
-		<h2>Projects:</h2>
-		<ul>
-			<li th:each="project : ${data.projects}">
-				<span th:text="'Name: ' + ${project.name}"></span>
-				<span th:text="'Time in Decimal: ' + ${project.decimal}"></span>
-				<span th:text="'Time in Digital: ' + ${project.digital}"></span>
-				<span th:text="'Hours: ' + ${project.hours}"></span>
-				<span th:text="'Minutes: ' + ${project.minutes}"></span>
-				<span th:text="'Percent: ' + ${project.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${project.total_seconds}"></span>
-			</li>
-		</ul>
+	<!-- =====================================================
+	     CONTEÚDO
+	     ===================================================== -->
+	<main class="page-content">
+		<div class="waka">
 
-		<!-- Exibindo as informações de Editors -->
-		<h2>Editors:</h2>
-		<ul>
-			<li th:each="editor : ${data.editors}">
-				<span th:text="'Editor Name: ' + ${editor.name}"></span>
-				<span th:text="'Percent: ' + ${editor.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${editor.total_seconds}"></span>
-			</li>
-		</ul>
+			<!-- ---------- Codando agora (não depende do período) ----------
+			     Preenchido pelo static/js/codando-agora.js com o fragmento
+			     GET /fragmentos/codando-agora, de novo a cada minuto. -->
+			<div id="waka-now" hidden
+			     th:data-url="@{/fragmentos/codando-agora}"
+			     th:data-refresh-seconds="${refreshSeconds}"></div>
 
-		<!-- Exibindo as informações de Dependencies -->
-		<h2>Dependencies:</h2>
-		<ul>
-			<li th:each="dependency : ${data.dependencies}">
-				<span th:text="'Dependency Name: ' + ${dependency.name}"></span>
-				<span th:text="'Total Seconds: ' + ${dependency.total_seconds}"></span>
-			</li>
-		</ul>
+			<!-- ---------- Período + link do perfil ---------- -->
+			<div class="waka-toolbar">
+				<form class="waka-ranges" method="get" th:action="@{/}" role="group" aria-label="Período">
+					<button th:each="option : ${ranges}"
+					        type="submit" name="range"
+					        th:value="${option.key}"
+					        th:text="${option.value}"
+					        th:classappend="${option.key == range} ? 'active'"
+					        th:attr="aria-pressed=${option.key == range}"></button>
+				</form>
 
-		<!-- Exibindo as informações de Operating Systems -->
-		<h2>Operating Systems:</h2>
-		<ul>
-			<li th:each="os : ${data.operating_systems}">
-				<span th:text="'OS Name: ' + ${os.name}"></span>
-				<span th:text="'Percent: ' + ${os.percent}"></span>
-				<span th:text="'Total Seconds: ' + ${os.total_seconds}"></span>
-			</li>
-		</ul>
-	</div>
+				<a th:if="${profileUrl != ''}" class="waka-profile" th:href="${profileUrl}" target="_blank" rel="noopener noreferrer">
+					Ver perfil no WakaTime <svg th:replace="~{fragments/icons :: externalLink}"></svg>
+				</a>
+			</div>
+
+			<!-- ---------- Erro (token faltando, inválido ou sem escopo) ---------- -->
+			<div th:if="${erro}" class="waka-message error" role="alert">
+				<strong th:text="${erro}"></strong>
+				<span>Veja o passo a passo do token OAuth no README.md.</span>
+			</div>
+
+			<!-- ---------- WakaTime ainda calculando (HTTP 202) ---------- -->
+			<div th:if="${aviso}" class="waka-message warning" role="alert">
+				<strong th:text="${aviso}"></strong>
+			</div>
+
+			<div th:if="${stats != null}" class="waka-body">
+
+				<!-- ---------- Indicadores ---------- -->
+				<ul class="waka-kpis">
+					<li class="waka-kpi">
+						<span class="waka-kpi-label"><svg th:replace="~{fragments/icons :: clock}"></svg>Tempo total</span>
+						<span class="waka-kpi-value" th:text="${@fmt.duration(stats.totalSeconds)}"></span>
+						<span class="waka-kpi-note"
+						      th:text="${stats.range == 'all_time' and stats.start != null ? 'desde ' + @fmt.date(stats.start) : @fmt.number(stats.languages.size()) + ' linguagens'}"></span>
+					</li>
+
+					<li class="waka-kpi">
+						<span class="waka-kpi-label"><svg th:replace="~{fragments/icons :: activity}"></svg>Média diária</span>
+						<span class="waka-kpi-value" th:text="${@fmt.duration(stats.dailyAverage)}"></span>
+						<span th:if="${stats.activeDays != null}" class="waka-kpi-note"
+						      th:text="${@fmt.number(stats.activeDays)} + ' dias ativos'"></span>
+					</li>
+
+					<!-- "Hoje" (escopo read_summaries); sem ele, o editor principal -->
+					<li th:if="${stats.todaySeconds != null}" class="waka-kpi">
+						<span class="waka-kpi-label"><svg th:replace="~{fragments/icons :: sun}"></svg>Hoje</span>
+						<span class="waka-kpi-value" th:text="${@fmt.duration(stats.todaySeconds)}"></span>
+						<span class="waka-kpi-note">até agora</span>
+					</li>
+					<li th:if="${stats.todaySeconds == null}" class="waka-kpi">
+						<span class="waka-kpi-label"><svg th:replace="~{fragments/icons :: code}"></svg>Editor principal</span>
+						<span class="waka-kpi-value" th:text="${stats.topEditor != null ? stats.topEditor.name : '—'}"></span>
+						<span th:if="${stats.topEditor != null}" class="waka-kpi-note"
+						      th:text="${@fmt.percent(stats.topEditor.percent)} + ' do tempo'"></span>
+					</li>
+
+					<li class="waka-kpi">
+						<span class="waka-kpi-label"><svg th:replace="~{fragments/icons :: award}"></svg>Melhor dia</span>
+						<span class="waka-kpi-value"
+						      th:text="${stats.bestDaySeconds != null ? @fmt.duration(stats.bestDaySeconds) : '—'}"></span>
+						<span class="waka-kpi-note"
+						      th:text="${stats.bestDayDate != null ? @fmt.date(stats.bestDayDate) : 'sem dados no período'}"></span>
+					</li>
+				</ul>
+
+				<!-- ---------- Linguagens ---------- -->
+				<th:block th:if="${!stats.languages.isEmpty()}">
+					<!-- Barra única dividida por linguagem (parte do todo) -->
+					<div class="waka-stack" aria-hidden="true">
+						<span th:each="lang : ${stats.languages}" class="waka-stack-seg"
+						      th:style="'flex-grow: ' + ${lang.seconds} + '; background: ' + ${lang.color}"
+						      th:title="${lang.name} + ' · ' + ${@fmt.duration(lang.seconds)} + ' · ' + ${@fmt.percent(lang.percent)}"></span>
+					</div>
+
+					<div class="waka-grid">
+						<section class="waka-card">
+							<h3>Linguagens</h3>
+							<ul class="waka-list">
+								<li th:each="lang : ${stats.topLanguages}" class="waka-row" th:style="'--lang: ' + ${lang.color}">
+									<div class="waka-row-head">
+										<span class="waka-dot" aria-hidden="true"></span>
+										<span class="waka-name" th:text="${lang.name}"></span>
+										<span class="waka-time" th:text="${@fmt.duration(lang.seconds)}"></span>
+										<span class="waka-pct" th:text="${@fmt.percent(lang.percent)}"></span>
+									</div>
+									<div class="waka-bar" aria-hidden="true">
+										<span th:style="'width: ' + ${@fmt.width(lang.seconds, stats.maxLanguageSeconds)}"></span>
+									</div>
+								</li>
+								<li th:if="${stats.restCount > 0}" class="waka-row waka-row-rest"
+								    th:text="${'+ ' + stats.restCount + (stats.restCount == 1 ? ' outra' : ' outras') + ' · ' + @fmt.duration(stats.restSeconds) + ' · ' + @fmt.percent(stats.restPercent)}"></li>
+							</ul>
+						</section>
+
+						<aside class="waka-card waka-side">
+							<section th:replace="~{::miniList(title='Editores', items=${stats.editors})}"></section>
+							<section th:replace="~{::miniList(title='Sistemas operacionais', items=${stats.operatingSystems})}"></section>
+							<section th:replace="~{::miniList(title='Categorias', items=${stats.categories})}"></section>
+						</aside>
+					</div>
+				</th:block>
+
+				<p th:if="${stats.languages.isEmpty()}" class="waka-empty">Nenhuma atividade registrada neste período.</p>
+
+				<!-- ---------- Projetos ---------- -->
+				<section th:if="${!stats.projects.isEmpty()}" class="waka-card waka-projects">
+					<h3>Projetos</h3>
+					<ul>
+						<li th:each="project : ${stats.projects}">
+							<span th:text="${project.name}"></span>
+							<strong th:text="${@fmt.duration(project.seconds)}"></strong>
+						</li>
+					</ul>
+				</section>
+
+				<p class="waka-source" th:text="'Dados do WakaTime · ' + ${stats.source == 'oauth' ? 'lidos com o seu token OAuth' : 'perfil público'}"></p>
+			</div>
+		</div>
+	</main>
+
+	<footer class="page-footer">
+		Projeto didático · PUC Minas · Spring Boot + Thymeleaf
+	</footer>
 </div>
+
+<!-- Lista pequena (editores, sistemas e categorias). Fica fora da página:
+     só é usada pelos th:replace acima. -->
+<th:block th:if="false">
+	<section th:fragment="miniList(title, items)" th:if="${!items.isEmpty()}" class="waka-mini">
+		<h4 th:text="${title}"></h4>
+		<ul>
+			<li th:each="item : ${items}">
+				<span class="waka-mini-name" th:text="${item.name}"></span>
+				<span class="waka-mini-bar" aria-hidden="true">
+					<span th:style="'width: ' + ${@fmt.miniWidth(item.percent)}"></span>
+				</span>
+				<span class="waka-mini-pct" th:text="${@fmt.percent(item.percent)}"></span>
+			</li>
+		</ul>
+	</section>
+</th:block>
+
+<script th:src="@{/js/codando-agora.js}"></script>
 </body>
 </html>

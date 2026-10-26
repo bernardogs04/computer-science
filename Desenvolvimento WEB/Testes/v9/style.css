@@ -316,16 +316,22 @@ main {
   background: var(--fogo);
 }
 
+.destaques__lista {
+  min-height: 180px;
+}
+
 .destaque-card {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 20px;
-  align-items: center;
+  align-items: stretch;
+  height: 180px;
 }
 
 .destaque-card > a {
   display: block;
   min-width: 0;
+  height: 100%;
   border-radius: var(--raio-sm);
   overflow: hidden;
   background: var(--fumaca-alta);
@@ -334,8 +340,16 @@ main {
 .destaque-card > a img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: 100%;
   object-fit: cover;
+}
+
+.destaque-card__info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
 }
 
 .destaque-card__imagem--missing {
@@ -350,16 +364,25 @@ main {
   font-family: 'Anton', sans-serif;
   font-size: 24px;
   font-weight: 400;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .destaque-card__info p {
   margin: 0 0 14px;
   color: var(--creme-fraca);
   line-height: 1.55;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .btn-destaque-detalhes {
   display: inline-block;
+  margin-top: auto;
   text-decoration: none;
 }
 
@@ -1242,8 +1265,10 @@ body.modal-aberto {
 
 @media (max-width: 640px) {
   .destaque-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 160px minmax(0, 1fr);
     gap: 14px;
+    height: 390px;
   }
 
   .produto-detalhe__grade,

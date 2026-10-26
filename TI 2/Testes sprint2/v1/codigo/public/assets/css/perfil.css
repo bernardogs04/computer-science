@@ -1,0 +1,466 @@
+/* =====================================================================
+   POP-UP DE PERFIL DO USUÁRIO
+   Usa as variáveis do tema da home (style.css) quando existirem e cai
+   para a paleta roxa do projeto nas demais páginas (chat, disciplina).
+   ===================================================================== */
+.perfil-dialog {
+  --pf-superficie: var(--superficie, #1e1535);
+  --pf-superficie-2: var(--superficie-2, #2a1f47);
+  --pf-texto: var(--texto, #f1ecfb);
+  --pf-suave: var(--texto-suave, #b3a8cc);
+  --pf-borda: var(--borda, rgba(255, 255, 255, .14));
+  --pf-destaque: var(--destaque, #c4b5fd);
+  --pf-primaria: var(--primaria, #a78bfa);
+  --pf-texto-primaria: var(--texto-primaria, #221435);
+  --pf-erro: var(--erro, #ff8d9e);
+  --pf-sucesso: #4ade80;
+
+  width: min(480px, calc(100vw - 2rem));
+  max-height: min(92vh, 780px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--pf-texto);
+  background: var(--pf-superficie);
+  border: 1px solid var(--pf-borda);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(2, 0, 20, .45);
+  font-family: var(--fonte, "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif);
+}
+
+:root[data-tema="claro"] .perfil-dialog,
+.perfil-dialog.perfil-dialog--claro {
+  --pf-sucesso: #15803d;
+}
+
+.perfil-dialog,
+.perfil-dialog *,
+.perfil-dialog *::before,
+.perfil-dialog *::after {
+  box-sizing: border-box;
+}
+
+.perfil-dialog::backdrop {
+  background: rgba(2, 0, 20, .68);
+  backdrop-filter: blur(5px);
+}
+
+.perfil-dialog[open] {
+  animation: perfil-entrada .18s ease-out;
+}
+
+.perfil-dialog[open]::backdrop {
+  animation: perfil-fundo .18s ease-out;
+}
+
+@keyframes perfil-entrada {
+  from { opacity: 0; transform: translateY(10px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes perfil-fundo {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.perfil-dialog button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.perfil-dialog :focus-visible {
+  outline: 3px solid var(--pf-destaque);
+  outline-offset: 2px;
+}
+
+/* ----- cabeçalho ----- */
+.perfil-cartao {
+  display: flex;
+  flex-direction: column;
+}
+
+.perfil-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid var(--pf-borda);
+}
+
+.perfil-titulo {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.perfil-fechar {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2.25rem;
+  height: 2.25rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--pf-borda);
+  border-radius: 50%;
+  background: var(--pf-superficie-2);
+  color: var(--pf-texto);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: background .15s, transform .15s;
+}
+
+.perfil-fechar:hover {
+  background: var(--pf-primaria);
+  color: var(--pf-texto-primaria);
+}
+
+/* ----- corpo ----- */
+.perfil-corpo {
+  padding: 1.4rem;
+}
+
+.perfil-estado {
+  margin: 1.5rem 0;
+  text-align: center;
+  color: var(--pf-suave);
+}
+
+.perfil-estado--erro {
+  color: var(--pf-erro);
+}
+
+.perfil-conteudo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .9rem;
+  text-align: center;
+}
+
+.perfil-conteudo[hidden],
+.perfil-estado[hidden],
+.perfil-dialog [hidden] {
+  display: none !important;
+}
+
+.perfil-avatar {
+  display: grid;
+  width: 88px;
+  height: 88px;
+  place-items: center;
+  border-radius: 50%;
+  border: 3px solid var(--pf-destaque);
+  background: var(--pf-superficie-2);
+  color: var(--pf-texto);
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+  user-select: none;
+}
+
+.perfil-avatar--neutro {
+  color: var(--pf-suave);
+  border-style: dashed;
+}
+
+.perfil-bloco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  width: 100%;
+}
+
+.perfil-rotulo {
+  color: var(--pf-suave);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.perfil-nome {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.perfil-apelido-linha {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  max-width: 100%;
+}
+
+.perfil-apelido {
+  font-size: 1.05rem;
+  overflow-wrap: anywhere;
+}
+
+.perfil-editar {
+  display: grid;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--pf-borda);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--pf-texto);
+  font-size: 1rem;
+  line-height: 1;
+  transition: background .15s, color .15s;
+}
+
+.perfil-editar:hover {
+  background: var(--pf-primaria);
+  color: var(--pf-texto-primaria);
+}
+
+/* ----- badge de classe ----- */
+.perfil-badge {
+  display: inline-block;
+  padding: .3rem .85rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+.perfil-badge--aluno         { background: #1d4ed8; color: #fff; }
+.perfil-badge--monitor       { background: #6d28d9; color: #fff; }
+.perfil-badge--professor     { background: #0f766e; color: #fff; }
+.perfil-badge--administrador { background: #b45309; color: #fff; }
+.perfil-badge--neutro        { background: var(--pf-superficie-2); color: var(--pf-suave); border-color: var(--pf-borda); }
+
+/* ----- edição do apelido ----- */
+.perfil-form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 100%;
+  text-align: left;
+}
+
+.perfil-form .perfil-rotulo {
+  align-self: flex-start;
+}
+
+.perfil-campo {
+  width: 100%;
+  padding: .75rem .9rem;
+  border: 1px solid var(--pf-borda);
+  border-radius: 9px;
+  background: var(--pf-superficie-2);
+  color: var(--pf-texto);
+  font: inherit;
+}
+
+.perfil-campo:focus {
+  border-color: var(--pf-destaque);
+  outline: 3px solid color-mix(in srgb, var(--pf-destaque) 25%, transparent);
+}
+
+.perfil-campo--invalido {
+  border-color: var(--pf-erro);
+}
+
+.perfil-form-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem;
+  min-height: 1.25rem;
+}
+
+.perfil-erro {
+  flex: 1;
+  margin: 0;
+  color: var(--pf-erro);
+  font-size: .86rem;
+}
+
+.perfil-contador {
+  flex: 0 0 auto;
+  color: var(--pf-suave);
+  font-size: .82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.perfil-contador--excedido {
+  color: var(--pf-erro);
+  font-weight: 700;
+}
+
+.perfil-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: .7rem;
+  margin-top: .2rem;
+}
+
+.perfil-btn {
+  min-height: 2.6rem;
+  padding: .55rem 1.1rem;
+  border: 1px solid var(--pf-borda);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--pf-texto);
+  font-weight: 650;
+  transition: background .15s, opacity .15s;
+}
+
+.perfil-btn:hover:not(:disabled) {
+  background: var(--pf-superficie-2);
+}
+
+.perfil-btn--primario {
+  border-color: var(--pf-primaria);
+  background: var(--pf-primaria);
+  color: var(--pf-texto-primaria);
+}
+
+.perfil-btn--primario:hover:not(:disabled) {
+  background: var(--pf-primaria);
+  filter: brightness(1.1);
+}
+
+.perfil-btn:disabled {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+.perfil-sucesso {
+  margin: 0;
+  color: var(--pf-sucesso);
+  font-size: .9rem;
+  font-weight: 650;
+}
+
+.perfil-sucesso:empty {
+  display: none;
+}
+
+/* ----- dados pessoais ----- */
+.perfil-secao {
+  width: 100%;
+  margin: .6rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--pf-borda);
+  color: var(--pf-suave);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.perfil-dados {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: .6rem 1.1rem;
+  width: 100%;
+  margin: 0;
+  text-align: left;
+}
+
+.perfil-chave {
+  color: var(--pf-suave);
+  font-size: .88rem;
+}
+
+.perfil-valor {
+  margin: 0;
+  font-size: .94rem;
+  overflow-wrap: anywhere;
+}
+
+.perfil-valor--vazio {
+  color: var(--pf-suave);
+  font-style: italic;
+}
+
+.perfil-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perfil-chip {
+  padding: .2rem .6rem;
+  border: 1px solid var(--pf-borda);
+  border-radius: 999px;
+  background: var(--pf-superficie-2);
+  font-size: .82rem;
+}
+
+/* ----- gatilhos ----- */
+/* O avatar da home passou de <a href="#"> para <button>: remove o estilo padrão do botão. */
+button.perfil {
+  padding: 0;
+  border: 0;
+  color: inherit;
+}
+
+[data-perfil-usuario] {
+  cursor: pointer;
+}
+
+.perfil-link-btn {
+  margin-top: .45rem;
+  padding: .35rem .8rem;
+  border: 1px solid #9d55fc;
+  border-radius: 999px;
+  background: transparent;
+  color: #ffffff;
+  font-size: .8rem;
+}
+
+.perfil-link-btn:hover {
+  background: #9d55fc;
+}
+
+/* ----- responsividade ----- */
+@media (max-width: 480px) {
+  .perfil-dialog {
+    width: calc(100vw - 1rem);
+    max-height: 94vh;
+    border-radius: 14px;
+  }
+
+  .perfil-corpo {
+    padding: 1.1rem;
+  }
+
+  .perfil-dados {
+    grid-template-columns: 1fr;
+    gap: .15rem;
+  }
+
+  .perfil-dados .perfil-chave:not(:first-child) {
+    margin-top: .55rem;
+  }
+
+  .perfil-acoes {
+    flex-direction: column-reverse;
+  }
+
+  .perfil-acoes .perfil-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .perfil-dialog[open],
+  .perfil-dialog[open]::backdrop {
+    animation: none;
+  }
+}

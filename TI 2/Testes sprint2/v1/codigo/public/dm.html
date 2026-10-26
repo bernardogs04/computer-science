@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ptBR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Seu sistema de gestão de monitorias" />
+    <link rel="stylesheet" href="assets/css/dm.css" />
+    <link rel="stylesheet" href="assets/css/perfil.css" />
+    <title>Mentora - Chat</title>
+  </head>
+
+  <body>
+    <nav class="navbar">A</nav>
+    
+    <div class="wrap">
+      <header class="header">B</header>
+      <main class="content">
+        <article class="chatwindow">
+          <header class="chat-title">
+            <div class="chat-avatar" data-perfil-contato data-perfil-usuario="" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Ver perfil do contato" title="Ver perfil">AM</div>
+            <div class="chat-title-copy">
+              <h1>Ana Martins</h1>
+              <p>Monitora de Algoritmos</p>
+            </div>
+            <span class="chat-status">online</span>
+            <button class="info-toggle" type="button" aria-label="Mostrar informações da conversa" aria-controls="conversation-info" aria-expanded="false" title="Informações">i</button>
+          </header>
+          
+          <section class="chat" aria-label="Histórico da conversa">
+            <p class="chat-date">Hoje, 14 de maio</p>
+          </section>
+          
+          <form class="chatinput" action="#" method="post">
+            <button type="button" aria-label="Adicionar imagem">img</button>
+            <button type="button" aria-label="Adicionar link">link</button>
+            <label class="visually-hidden" for="message">Escreva uma mensagem</label>
+            <input id="message" name="message" type="text" placeholder="Escreva uma mensagem..." />
+            <button class="send-button" type="submit">Enviar</button>
+          </form>
+        </article>
+        <details class="sideinfo" id="conversation-info">
+          <summary class="sideinfo-toggle">
+            <span class="section-kicker">sobre a conversa</span>
+            <h1>Informações</h1>
+          </summary>
+          <div class="sideinfo-body">
+            <section class="usrinfo" id="perfil">
+              <div class="usrimg">foto</div>
+              <div class="usrinfo-copy">
+                <h2>Ana Martins</h2>
+                <p>Monitora de Algoritmos</p>
+                <button class="perfil-link-btn" type="button" data-perfil-contato data-perfil-usuario="" aria-haspopup="dialog">Ver perfil</button>
+              </div>
+            </section>
+            <section class="contact-box" id="contatos" aria-labelledby="contact-title">
+              <header class="contact-box-header">
+                <span class="info-icon">@</span>
+                <h2 id="contact-title">Contato direto</h2>
+              </header>
+              <div class="contact-copy">
+                <p><strong>e-mail</strong><span>ana.martins@mentora.com</span></p>
+                <p><strong>telefone</strong><span>(31) 99999-0000</span></p>
+              </div>
+            </section>
+            
+            <section class="next-class" id="aula" aria-labelledby="next-class-title">
+              <span class="info-icon">□</span>
+              <div class="next-class-copy">
+                <span class="section-kicker">agenda</span>
+                <h2 id="next-class-title">próxima aula</h2>
+                <p class="next-class-value">Aguardando informações</p>
+                <small class="next-class-meta">Dados carregados pelo JSON</small>
+              </div>
+            </section>
+
+            <details class="duvidas" open>
+              <summary class="duvidas-toggle">
+                <div>
+                  <h2>perguntas frequentes</h2>
+                </div>
+                <span class="duvidas-count">02</span>
+              </summary>
+              <div class="duvidas-list">
+                <input class="faq-toggle" type="checkbox" id="faq-monitoria" />
+                <label class="faq-question" for="faq-monitoria">Como funciona a monitoria?<span>+</span></label>
+                <div class="faq-popup">
+                  <div class="faq-popup-box">
+                    <span class="section-kicker">pergunta frequente</span>
+                    <h3>Como funciona a monitoria?</h3>
+                    <p>A monitoria oferece apoio para exercícios, revisão de conteúdo e orientação dos estudos.</p>
+                    <label class="faq-close" for="faq-monitoria">Sair</label>
+                  </div>
+                </div>
+                
+                <input class="faq-toggle" type="checkbox" id="faq-materiais" />
+                <label class="faq-question" for="faq-materiais">Onde encontro os materiais?<span>+</span></label>
+                <div class="faq-popup">
+                  <div class="faq-popup-box">
+                    <span class="section-kicker">pergunta frequente</span>
+                    <h3>Onde encontro os materiais?</h3>
+                    <p>Os materiais ficam disponíveis na área da disciplina e são organizados por semana.</p>
+                    <label class="faq-close" for="faq-materiais">Sair</label>
+                  </div>
+                </div>
+              </div>
+            </details>
+            </div>
+          </details>
+        </main>
+      </div>
+      <script src="assets/js/perfil.js"></script>
+      <script src="assets/js/dm.js" ></script>
+    </body>
+    </html>
